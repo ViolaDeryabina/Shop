@@ -111,7 +111,7 @@ fun RegisterAccount(modifier: Modifier = Modifier) {
                 },
                 trailingIcon = {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.eye_slash),
+                        imageVector = ImageVector.vectorResource(if(!passwordShow) R.drawable.eye_slash else R.drawable.eye_open),
                         contentDescription = "",
                         tint = CustomTheme.colors.hint,
                         modifier = Modifier.clickable(onClick = { })
