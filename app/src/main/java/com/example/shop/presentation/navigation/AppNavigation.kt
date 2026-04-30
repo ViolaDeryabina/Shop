@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.navigation.RegisterAccount
 
 import com.example.shop.presentation.navigation.SignIn
+import com.example.shop.presentation.screens.Home
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.RegisterAccount
 import com.example.shop.presentation.screens.SignIn
@@ -35,6 +36,12 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 )
             }
             composable<SignIn> { SignIn() }
+            composable<Home> {
+                Home(
+                    modifier = Modifier.padding(innerPadding),
+                    //navController
+                )
+            }
 
         }
     }

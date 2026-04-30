@@ -107,7 +107,7 @@ data class CustomTypography(
             fontSize = 16.sp,
             //lineHeight = 20.sp,
             letterSpacing = 0.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.Normal
         ),
 
 

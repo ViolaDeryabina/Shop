@@ -10,3 +10,6 @@ object SignIn
 
 @Serializable
 object Onboard
+
+@Serializable
+object Home
