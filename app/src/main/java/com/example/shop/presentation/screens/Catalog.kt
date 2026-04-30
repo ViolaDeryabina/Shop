@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -27,20 +29,22 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun Catalog(modifier: Modifier = Modifier) {
+fun Catalog(modifier: Modifier = Modifier, navController: NavController) {
+    val scroll = rememberScrollState()
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(CustomTheme.colors.background)
     ) {
         Column(
-            modifier = modifier
+            modifier = modifier.verticalScroll(scroll)
                 .padding(start = 20.dp)
                 .fillMaxSize()
                 .background(CustomTheme.colors.background)
@@ -57,7 +61,7 @@ fun Catalog(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = {  }
+                        .size(44.dp), onClick = { navController.popBackStack() }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.direction_left),
@@ -200,6 +204,6 @@ fun Catalog(modifier: Modifier = Modifier) {
 @Composable
 private fun CatalogPrev() {
     CustomTheme{
-        Catalog() 
+        //Catalog()
     }
 }

@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -30,21 +32,24 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.CustomCard
+import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
 fun Popular(modifier: Modifier = Modifier, navController: NavController) {
+    val scroll = rememberScrollState()
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(CustomTheme.colors.background)
     ) {
         Column(
-            modifier = modifier
+            modifier = modifier.verticalScroll(scroll)
                 .padding(start = 20.dp)
                 .fillMaxSize()
                 .background(CustomTheme.colors.background)
         ) {
+            Spacer(modifier = Modifier.height(12.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -75,7 +80,7 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
-                        .size(40.dp), onClick = {}
+                        .size(40.dp), onClick = {navController.navigate(Catalog)}
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.favorite),
