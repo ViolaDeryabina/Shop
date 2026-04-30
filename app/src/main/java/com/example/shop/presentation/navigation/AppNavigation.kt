@@ -32,7 +32,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             composable<Onboard> {
                 Onboard(
                     modifier = Modifier.padding(innerPadding),
-                    //navController
+                    navController
                 )
             }
             composable<SignIn> { SignIn() }

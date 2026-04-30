@@ -28,12 +28,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.presentation.components.SecondaryButton
+import com.example.shop.presentation.navigation.Home
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun Onboard(modifier: Modifier = Modifier) {
+fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -44,22 +46,6 @@ fun Onboard(modifier: Modifier = Modifier) {
             )
     ) {
         val pagerState = rememberPagerState(pageCount = { 3 })
-        val pagerIsDragged by pagerState.interactionSource.collectIsDraggedAsState()
-
-        val pageInteractionSource = remember { MutableInteractionSource() }
-        val pageIsPressed by pageInteractionSource.collectIsPressedAsState()
-        val autoAdvance = !pagerIsDragged && !pageIsPressed
-
-        if (autoAdvance) {
-            LaunchedEffect(pagerState, pageInteractionSource) {
-                while (true) {
-                    delay(2000)
-                    val nextPage = (pagerState.currentPage + 1) % 3
-                    pagerState.animateScrollToPage(nextPage)
-                }
-            }
-        }
-
         HorizontalPager(
             state = pagerState
         ) { page ->
@@ -87,7 +73,7 @@ fun Onboard(modifier: Modifier = Modifier) {
         Spacer(modifier= Modifier.weight(1f))
         PagerIndicator(3, pagerState.currentPage)
         Spacer(modifier = Modifier.height(spacer.dp))
-        SecondaryButton(onClick = {}, text = text, enabled = true, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp))
+        SecondaryButton(onClick = {navController.navigate(Home)}, text = text, enabled = true, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp))
         Spacer(modifier = Modifier.height(36.dp))
     }
 }
@@ -126,6 +112,6 @@ fun PagerIndicator(pageCount: Int, currentPageIndex: Int, modifier: Modifier = M
 @Composable
 private fun OnboardPrev() {
     CustomTheme {
-        Onboard()
+       // Onboard()
     }
 }
