@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -21,7 +20,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -33,6 +31,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.Input
@@ -40,13 +39,16 @@ import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun RegisterAccount(modifier: Modifier = Modifier) {
+fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController) {
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
     var passwordShow by rememberSaveable { mutableStateOf(false) }
     var policyClick by rememberSaveable { mutableStateOf(false) }
+    var buttonEnabled by rememberSaveable { mutableStateOf(false) }
+
+    if(policyClick && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())buttonEnabled=true else buttonEnabled=false
 
 
     Box(
@@ -125,7 +127,7 @@ fun RegisterAccount(modifier: Modifier = Modifier) {
                 Box(
                     modifier = Modifier
                         .background(
-                            if (policyClick) CustomTheme.colors.background else CustomTheme.colors.accent,
+                            if (!policyClick) CustomTheme.colors.background else CustomTheme.colors.accent,
                             shape = RoundedCornerShape(6.dp)
                         )
                         .size(18.dp),
@@ -149,10 +151,10 @@ fun RegisterAccount(modifier: Modifier = Modifier) {
             }
             Spacer(modifier = Modifier.height(24.dp))
             PrimaryButton(
-                onClick = {},
+                onClick = {navController.navigate(SignIn)},
                 text = "Зарегистрироваться",
                 modifier = Modifier.fillMaxWidth(),
-                enabled = policyClick
+                enabled = buttonEnabled
             )
             Spacer(modifier = Modifier.weight(1f))
             Row(
@@ -181,7 +183,7 @@ fun RegisterAccount(modifier: Modifier = Modifier) {
 @Composable
 private fun RegisterAccountPrev() {
     CustomTheme {
-        RegisterAccount()
+       // RegisterAccount()
     }
 
 }
