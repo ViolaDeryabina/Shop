@@ -1,4 +1,4 @@
-package com.example.shop.presentation.screens
+package com.example.shop.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
@@ -7,3 +7,6 @@ object RegisterAccount
 
 @Serializable
 object SignIn
+
+@Serializable
+object Onboard

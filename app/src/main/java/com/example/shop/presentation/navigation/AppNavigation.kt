@@ -8,20 +8,30 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.shop.presentation.screens.RegisterAccount
+import com.example.shop.presentation.navigation.RegisterAccount
 
+import com.example.shop.presentation.navigation.SignIn
+import com.example.shop.presentation.screens.Onboard
+import com.example.shop.presentation.screens.RegisterAccount
 import com.example.shop.presentation.screens.SignIn
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        NavHost(navController = navController, startDestination = RegisterAccount) {
+        NavHost(navController = navController, startDestination = Onboard) {
 
             composable<RegisterAccount> {
                 RegisterAccount(
                     modifier = Modifier.padding(innerPadding),
                     navController
+                )
+            }
+
+            composable<Onboard> {
+                Onboard(
+                    modifier = Modifier.padding(innerPadding),
+                    //navController
                 )
             }
             composable<SignIn> { SignIn() }
