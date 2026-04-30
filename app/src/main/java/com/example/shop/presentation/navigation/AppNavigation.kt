@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.screens.Catalog
+import com.example.shop.presentation.screens.Favorite
 import com.example.shop.presentation.screens.Home
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.Popular
@@ -49,6 +50,12 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             }
             composable<Catalog> {
                 Catalog(
+                    modifier = Modifier.padding(innerPadding),
+                    navController
+                )
+            }
+            composable<Favorite> {
+                Favorite(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )

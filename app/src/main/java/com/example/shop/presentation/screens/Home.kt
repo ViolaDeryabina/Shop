@@ -46,6 +46,7 @@ import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.components.Search
+import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -56,7 +57,7 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
         BottomBar(
             selectedInt = 0,
             homeOnClick = { },
-            favoriteOnClick = { navController.navigate(Popular) },
+            favoriteOnClick = { navController.navigate(Favorite) },
             notificationOnClick = { },
             profileOnClick = { },
             basketOnClick = { }

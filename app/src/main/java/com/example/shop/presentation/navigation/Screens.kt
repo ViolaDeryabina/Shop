@@ -19,3 +19,6 @@ object Popular
 
 @Serializable
 object Catalog
+
+@Serializable
+object Favorite
