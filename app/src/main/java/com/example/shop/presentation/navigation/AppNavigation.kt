@@ -8,9 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.shop.presentation.navigation.RegisterAccount
-
-import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.screens.Catalog
 import com.example.shop.presentation.screens.Home
 import com.example.shop.presentation.screens.Onboard
