@@ -2,6 +2,9 @@ package com.example.shop.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
+//Назначение: Хранение объектов для навигации
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Serializable
 object RegisterAccount
 

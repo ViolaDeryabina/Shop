@@ -1,5 +1,6 @@
 package com.example.shop.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -11,6 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание компонента для обработки нажатий
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun PrimaryButton(
     modifier: Modifier = Modifier,
@@ -18,6 +22,8 @@ fun PrimaryButton(
     text: String,
     enabled: Boolean = false
     ) {
+    Log.i("PrimaryButton","Создание компонента для обработки нажатий")
+
     Button(
         onClick = { onClick() }, modifier = modifier.height(50.dp), colors = ButtonColors(
             containerColor = CustomTheme.colors.accent,

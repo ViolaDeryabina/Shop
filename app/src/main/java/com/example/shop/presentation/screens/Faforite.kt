@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,6 +39,9 @@ import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана фавориты
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
@@ -45,7 +49,10 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
         BottomBar(
             selectedInt = 0,
             homeOnClick = { },
-            favoriteOnClick = { navController.navigate(Popular) },
+            favoriteOnClick = {
+                Log.d("Favorite","Нажатие кнопки favoriteOnClick")
+                navController.navigate(Popular)
+                              },
             notificationOnClick = { },
             profileOnClick = { },
             basketOnClick = { }
@@ -95,7 +102,10 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                         modifier = Modifier
                             .clip(shape = CircleShape)
                             .background(CustomTheme.colors.block)
-                            .size(40.dp), onClick = { navController.navigate(Catalog) }
+                            .size(40.dp), onClick = {
+                            Log.d("Favorite","Нажатие кнопки favorite для перехода на экран Catalog")
+                                navController.navigate(Catalog)
+                            }
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.path),

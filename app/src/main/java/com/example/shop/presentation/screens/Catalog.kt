@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,6 +36,9 @@ import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана каталог
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Catalog(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
@@ -61,7 +65,10 @@ fun Catalog(modifier: Modifier = Modifier, navController: NavController) {
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = { navController.popBackStack() }
+                        .size(44.dp), onClick = {
+                            Log.d("Catalog","Нажатие кнопки назад")
+                            navController.popBackStack()
+                        }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.direction_left),

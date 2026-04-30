@@ -1,5 +1,6 @@
 package com.example.shop.presentation.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,6 +17,9 @@ import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.RegisterAccount
 import com.example.shop.presentation.screens.SignIn
 
+//Назначение: Навигация между экранами
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
@@ -23,6 +27,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         NavHost(navController = navController, startDestination = Onboard) {
 
             composable<RegisterAccount> {
+                Log.d("AppNavigation","Переход на экран RegisterAccount")
                 RegisterAccount(
                     modifier = Modifier.padding(innerPadding),
                     navController
@@ -30,31 +35,39 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             }
 
             composable<Onboard> {
+                Log.d("AppNavigation","Переход на экран Onboard")
                 Onboard(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
-            composable<SignIn> { SignIn() }
+            composable<SignIn> {
+                Log.d("AppNavigation","Переход на экран SignIn")
+                SignIn()
+            }
             composable<Home> {
+                Log.d("AppNavigation","Переход на экран Home")
                 Home(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Popular> {
+                Log.d("AppNavigation","Переход на экран Popular")
                 Popular(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Catalog> {
+                Log.d("AppNavigation","Переход на экран Catalog")
                 Catalog(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Favorite> {
+                Log.d("AppNavigation","Переход на экран Favorite")
                 Favorite(
                     modifier = Modifier.padding(innerPadding),
                     navController

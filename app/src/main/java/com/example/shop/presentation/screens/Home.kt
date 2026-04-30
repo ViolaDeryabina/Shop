@@ -1,6 +1,7 @@
 package com.example.shop.presentation.screens
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,6 +51,10 @@ import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
 
+
+//Назначение: Создание главного экрана home
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Home(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
@@ -57,7 +62,10 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
         BottomBar(
             selectedInt = 0,
             homeOnClick = { },
-            favoriteOnClick = { navController.navigate(Favorite) },
+            favoriteOnClick = {
+                Log.d("Home", "Нажатие на кнопку favorite для перехода на форму Favorite")
+                navController.navigate(Favorite)
+            },
             notificationOnClick = { },
             profileOnClick = { },
             basketOnClick = { }
@@ -70,7 +78,8 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                 .background(CustomTheme.colors.background)
         ) {
             Column(
-                modifier = Modifier.verticalScroll(scroll)
+                modifier = Modifier
+                    .verticalScroll(scroll)
                     .padding(start = 20.dp)
                     .padding(innerPadding)
                     .fillMaxSize()
@@ -179,7 +188,7 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                 Spacer(modifier = Modifier.height(15.dp))
                 ListCategory(
                     list = listOf(
-                        "Все","Outdoor","Tennis"
+                        "Все", "Outdoor", "Tennis"
                     ),
                     onClick = {}
                 )
@@ -203,7 +212,9 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(34.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(end = 20.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     CustomCard(
@@ -213,7 +224,7 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                         category = "Best Seller",
                         price = 752,
 
-                    )
+                        )
                     Spacer(modifier = Modifier.width(15.dp))
                     CustomCard(
                         modifier = Modifier.weight(0.42f),

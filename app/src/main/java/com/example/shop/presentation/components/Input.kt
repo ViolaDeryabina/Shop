@@ -1,5 +1,6 @@
 package com.example.shop.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -15,6 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание компонента ввода информации
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Input(
     modifier: Modifier = Modifier,
@@ -27,6 +31,8 @@ fun Input(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
+    Log.i("Input","Создание компонента ввода информации")
+
     Column() {
         if(isLabel){
             Text(

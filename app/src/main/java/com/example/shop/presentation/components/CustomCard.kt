@@ -38,6 +38,9 @@ import com.example.shop.R
 import com.example.shop.presentation.theme.CustomTheme
 import com.example.shop.presentation.theme.Text
 
+//Назначение: Создание компонента отображения карточек товара
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun CustomCard(
     modifier: Modifier = Modifier,
@@ -47,6 +50,8 @@ fun CustomCard(
     price: Int,
     heart: Boolean=false
 ) {
+    Log.i("CustomCard","Создание компонента отображения карточек товара")
+
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),

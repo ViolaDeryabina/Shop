@@ -1,5 +1,6 @@
 package com.example.shop.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -15,12 +16,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание компонента отображения категорий с строки с прокруткой
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun ListCategory(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     list: List<String>
 ) {
+    Log.i("ListCategory","Создание компонента отображения категорий с строки с прокруткой")
 
     LazyRow(modifier=modifier) {
         items(list) { item ->
@@ -30,32 +35,6 @@ fun ListCategory(
     }
 }
 
-@Composable
-fun SmallButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    text: String,
-) {
-    Button(
-        onClick = { onClick() },
-        modifier = modifier
-            .height(40.dp)
-            .width(108.dp),
-        colors = ButtonColors(
-            containerColor = CustomTheme.colors.block,
-            contentColor = CustomTheme.colors.text,
-            disabledContentColor = CustomTheme.colors.text,
-            disabledContainerColor = CustomTheme.colors.block,
-        ),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Text(
-            text = text,
-            color = CustomTheme.colors.text,
-            style = CustomTheme.typography.BodyRegular14
-        )
-    }
-}
 
 @Preview
 @Composable
