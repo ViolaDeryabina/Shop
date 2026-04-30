@@ -37,21 +37,23 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.components.Search
+import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun Home(modifier: Modifier = Modifier) {
+fun Home(modifier: Modifier = Modifier, navController: NavController) {
     Scaffold(bottomBar = {
         BottomBar(
             selectedInt = 0,
             homeOnClick = { },
-            favoriteOnClick = { },
+            favoriteOnClick = { navController.navigate(Popular) },
             notificationOnClick = { },
             profileOnClick = { },
             basketOnClick = { }
@@ -252,6 +254,6 @@ fun Home(modifier: Modifier = Modifier) {
 @Composable
 private fun HomePrev() {
     CustomTheme {
-        Home()
+        //Home()
     }
 }

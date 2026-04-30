@@ -27,13 +27,13 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.CustomCard
+import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun Popular(modifier: Modifier = Modifier, navController: NavController) {
+fun Catalog(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -45,6 +45,7 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                 .fillMaxSize()
                 .background(CustomTheme.colors.background)
         ) {
+            Spacer(modifier = Modifier.height(12.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -56,7 +57,7 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = { navController.popBackStack() }
+                        .size(44.dp), onClick = {  }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.direction_left),
@@ -66,29 +67,32 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     )
                 }
                 Text(
-                    text = "Популярное",
+                    text = "Outdoor",
                     style = CustomTheme.typography.BodyRegular16,
                     color = CustomTheme.colors.text
                 )
-
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(40.dp), onClick = {}
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.favorite),
-                        contentDescription = "",
-                        tint = CustomTheme.colors.text,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .offset(y = (2).dp)
-                    )
-                }
-
             }
             Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Категории",
+                    style = CustomTheme.typography.BodyRegular16,
+                    color = CustomTheme.colors.text
+                )
+            }
+            Spacer(modifier = Modifier.height(15.dp))
+            ListCategory(
+                list = listOf(
+                    "Все","Outdoor","Tennis"
+                ),
+                onClick = {}
+            )
+            Spacer(modifier = Modifier.height(18.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -194,8 +198,8 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
 
 @Preview
 @Composable
-private fun PopularPrev() {
-    CustomTheme {
-        //Popular()
+private fun CatalogPrev() {
+    CustomTheme{
+        Catalog() 
     }
 }

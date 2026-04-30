@@ -13,6 +13,7 @@ import com.example.shop.presentation.navigation.RegisterAccount
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.screens.Home
 import com.example.shop.presentation.screens.Onboard
+import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.RegisterAccount
 import com.example.shop.presentation.screens.SignIn
 
@@ -39,7 +40,13 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             composable<Home> {
                 Home(
                     modifier = Modifier.padding(innerPadding),
-                    //navController
+                    navController
+                )
+            }
+            composable<Popular> {
+                Popular(
+                    modifier = Modifier.padding(innerPadding),
+                    navController
                 )
             }
 

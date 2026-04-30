@@ -13,3 +13,6 @@ object Onboard
 
 @Serializable
 object Home
+
+@Serializable
+object Popular
