@@ -16,3 +16,6 @@ object Home
 
 @Serializable
 object Popular
+
+@Serializable
+object Catalog

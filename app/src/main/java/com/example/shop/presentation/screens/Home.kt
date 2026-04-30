@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -49,6 +51,7 @@ import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
 fun Home(modifier: Modifier = Modifier, navController: NavController) {
+    val scroll = rememberScrollState()
     Scaffold(bottomBar = {
         BottomBar(
             selectedInt = 0,
@@ -66,13 +69,15 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                 .background(CustomTheme.colors.background)
         ) {
             Column(
-                modifier = Modifier
+                modifier = Modifier.verticalScroll(scroll)
                     .padding(start = 20.dp)
                     .padding(innerPadding)
                     .fillMaxSize()
                     .background(CustomTheme.colors.background)
             ) {
+                Spacer(modifier = Modifier.height(3.dp))
                 Row(
+
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(end = 20.dp),
