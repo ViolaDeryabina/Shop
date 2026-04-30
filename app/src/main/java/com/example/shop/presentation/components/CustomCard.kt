@@ -44,7 +44,8 @@ fun CustomCard(
     bitmap: ImageBitmap,
     title: String,
     category: String,
-    price: Int
+    price: Int,
+    heart: Boolean=false
 ) {
     Card(
         modifier = modifier,
@@ -68,9 +69,9 @@ fun CustomCard(
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.favorite),
+                    imageVector = ImageVector.vectorResource(if(!heart) R.drawable.favorite else R.drawable.path),
                     contentDescription = "",
-                    tint = CustomTheme.colors.text,
+                    tint = if(!heart) CustomTheme.colors.text else CustomTheme.colors.red,
                     modifier = Modifier
                         .size(20.dp)
                         .offset(y = (2).dp)

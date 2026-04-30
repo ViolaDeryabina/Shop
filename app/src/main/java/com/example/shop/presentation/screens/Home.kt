@@ -64,7 +64,7 @@ fun Home(modifier: Modifier = Modifier) {
                 .background(CustomTheme.colors.background)
         ) {
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .padding(start = 20.dp)
                     .padding(innerPadding)
                     .fillMaxSize()
@@ -203,7 +203,8 @@ fun Home(modifier: Modifier = Modifier) {
                         bitmap = ImageBitmap.imageResource(R.drawable.bot),
                         title = "Nike Air Max",
                         category = "Best Seller",
-                        price = 752
+                        price = 752,
+
                     )
                     Spacer(modifier = Modifier.width(15.dp))
                     CustomCard(
