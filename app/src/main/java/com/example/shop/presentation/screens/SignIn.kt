@@ -27,18 +27,20 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.navigation.RegisterAccount
 import com.example.shop.presentation.theme.CustomTheme
 
 //Назначение: Создание экрана входа
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
-fun SignIn(modifier: Modifier = Modifier) {
+fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordShow by rememberSaveable { mutableStateOf(false) }
@@ -48,9 +50,9 @@ fun SignIn(modifier: Modifier = Modifier) {
     if(email.isNotEmpty() && password.isNotEmpty()) buttonEnabled=true else buttonEnabled=false
     Scaffold(
         topBar = {
-            BackBar(onClick = {})
+            BackBar(onClick = {navController.popBackStack()})
         },
-        bottomBar = { BottomBar(onClick = {}) }
+        bottomBar = { BottomBar(onClick = {navController.navigate(RegisterAccount)}) }
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -180,6 +182,6 @@ fun BackBar(modifier: Modifier = Modifier, onClick: () -> Unit) {
 @Composable
 private fun SignInPrev() {
     CustomTheme {
-        SignIn()
+        //SignIn()
     }
 }
