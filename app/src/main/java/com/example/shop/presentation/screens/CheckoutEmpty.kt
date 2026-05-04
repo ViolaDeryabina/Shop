@@ -39,6 +39,7 @@ import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.DialogCheckout
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.navigation.Home
 import com.example.shop.presentation.navigation.Map
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.flow.Flow
@@ -125,7 +126,10 @@ fun CheckoutEmpty(
                     Spacer(modifier = Modifier.height(10.dp))
                 }
                 Spacer(modifier = Modifier.height(23.dp))
-                PrimaryButton(onClick = {dialogShow=true}, text = "Подтвердить", enabled = true)
+                PrimaryButton(onClick = {
+                    dialogShow=true
+                    navController.navigate(Home)
+                                        }, text = "Подтвердить", enabled = true)
                 Spacer(modifier = Modifier.height(31.dp))
 
             }
