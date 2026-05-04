@@ -22,6 +22,7 @@ import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.RegisterAccount
 import com.example.shop.presentation.screens.Search
 import com.example.shop.presentation.screens.SignIn
+import com.example.shop.presentation.screens.Verification
 
 //Назначение: Навигация между экранами
 //Автор: Дерябина В.Н.
@@ -113,6 +114,12 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             composable<CheckoutEmpty> {
                 Log.d("AppNavigation", "Переход на экран CheckoutEmpty")
                 CheckoutEmpty(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }//Verification
+            composable<Verification> {
+                Log.d("AppNavigation", "Переход на экран Verification")
+                Verification(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }

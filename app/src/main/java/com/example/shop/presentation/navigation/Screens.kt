@@ -43,3 +43,6 @@ object Map
 
 @Serializable
 object CheckoutEmpty
+
+@Serializable
+object Verification

@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.navigation.Verification
 import com.example.shop.presentation.theme.CustomTheme
 
 
@@ -83,7 +84,10 @@ fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) 
             }, text = "Отправить", enabled = true)
         }
         if (showPopup) {
-            CustomDialog(onDismissRequest = { showPopup = false }, popup = true, text = "")
+            CustomDialog(onDismissRequest = {
+                showPopup = false
+                navController.navigate(Verification)
+            }, popup = true, text = "")
         }
 
     }
