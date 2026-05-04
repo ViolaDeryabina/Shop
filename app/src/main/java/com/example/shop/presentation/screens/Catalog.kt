@@ -1,205 +1,86 @@
 package com.example.shop.presentation.screens
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
+import com.example.shop.data.Product
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.ListCategory
+import com.example.shop.presentation.components.ScreenHeader
 import com.example.shop.presentation.theme.CustomTheme
 
 //Назначение: Создание экрана каталог
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
+
 @Composable
-fun Catalog(modifier: Modifier = Modifier, navController: NavController) {
+fun Catalog(modifier: Modifier = Modifier, navController: NavController = rememberNavController()) {
     val scroll = rememberScrollState()
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CustomTheme.colors.background)
-    ) {
-        Column(
-            modifier = modifier.verticalScroll(scroll)
-                .padding(start = 20.dp)
+    val products = remember {
+        List(8) {
+            Product("Nike Air Max", "Best Seller", 752, R.drawable.bot)
+        }
+    }
+    Scaffold(
+        topBar = {
+            ScreenHeader(
+                title = "Outdoor",
+                onBackClick = { navController.popBackStack() },
+                modifier = Modifier.padding(horizontal = 20.dp)
+            )
+        },
+        containerColor = CustomTheme.colors.background
+    ) { paddingValues ->
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
                 .fillMaxSize()
-                .background(CustomTheme.colors.background)
+                .padding(paddingValues)
+                .padding(horizontal = 20.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = {
-                            Log.d("Catalog","Нажатие кнопки назад")
-                            navController.popBackStack()
-                        }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.direction_left),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(14.dp)
+            item(span = { GridItemSpan(2) }) {
+                Column {
+                    Text(
+                        text = "Категории",
+                        style = CustomTheme.typography.BodyRegular16,
+                        color = CustomTheme.colors.text
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    ListCategory(
+                        list = listOf("Все", "Outdoor", "Tennis"),
+                        onClick = {}
                     )
                 }
-                Text(
-                    text = "Outdoor",
-                    style = CustomTheme.typography.BodyRegular16,
-                    color = CustomTheme.colors.text
-                )
             }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Категории",
-                    style = CustomTheme.typography.BodyRegular16,
-                    color = CustomTheme.colors.text
-                )
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            ListCategory(
-                list = listOf(
-                    "Все","Outdoor","Tennis"
-                ),
-                onClick = {}
-            )
-            Spacer(modifier = Modifier.height(18.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+
+            items(products) { product ->
                 CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-                Spacer(modifier = Modifier.width(15.dp))
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-                Spacer(modifier = Modifier.width(15.dp))
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-                Spacer(modifier = Modifier.width(15.dp))
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-            }
-            Spacer(modifier = Modifier.height(15.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
-                    heart = true
-                )
-                Spacer(modifier = Modifier.width(15.dp))
-                CustomCard(
-                    modifier = Modifier.weight(0.42f),
-                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                    title = "Nike Air Max",
-                    category = "Best Seller",
-                    price = 752,
+                    bitmap = ImageBitmap.imageResource(product.imageRes),
+                    title = product.title,
+                    category = product.category,
+                    price = product.price,
                     heart = true
                 )
             }
@@ -210,7 +91,7 @@ fun Catalog(modifier: Modifier = Modifier, navController: NavController) {
 @Preview
 @Composable
 private fun CatalogPrev() {
-    CustomTheme{
-        //Catalog()
+    CustomTheme {
+        Catalog()
     }
 }

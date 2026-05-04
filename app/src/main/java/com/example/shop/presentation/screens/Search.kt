@@ -2,7 +2,6 @@ package com.example.shop.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,49 +27,31 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
+import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.Search
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun Search(modifier: Modifier = Modifier) {
+fun Search(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
     var search by rememberSaveable { mutableStateOf("") }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CustomTheme.colors.background)
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(horizontal = 20.dp)
-                .background(CustomTheme.colors.background)
-        ) {
+    Scaffold(
+        topBar = {
             Row(
-
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 20.dp),
+                    .padding(20.dp),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .background(CustomTheme.colors.block, CircleShape), onClick = {}
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.back),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(25.dp)
-                    )
-                }
+                Back(onClick = { navController.popBackStack()},color= CustomTheme.colors.block)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = "Поиск",
@@ -78,11 +60,21 @@ fun Search(modifier: Modifier = Modifier) {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(26.dp))
+        },
+        containerColor = CustomTheme.colors.background
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 20.dp)
+        ) {
+
+            Spacer(modifier = Modifier.height(6.dp))
             Search(
                 modifier = Modifier.fillMaxWidth(),
                 value = search,
-                onValueChange = {search=it},
+                onValueChange = { search = it },
                 placeholder = {
                     Text(
                         text = "Поиск",

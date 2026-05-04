@@ -34,3 +34,15 @@ object Details
 
 @Serializable
 object Search
+
+@Serializable
+object ForgotPassword
+
+@Serializable
+object Map
+
+@Serializable
+object CheckoutEmpty
+
+@Serializable
+object Verification

@@ -3,7 +3,6 @@ package com.example.shop.presentation.screens
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,19 +43,8 @@ import com.example.shop.presentation.theme.CustomTheme
 fun Popular(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
     Log.i("Popular", "Создание экрана Popular")
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CustomTheme.colors.background)
-    ) {
-        Column(
-            modifier = modifier
-                .verticalScroll(scroll)
-                .padding(start = 20.dp)
-                .fillMaxSize()
-                .background(CustomTheme.colors.background)
-        ) {
-            Spacer(modifier = Modifier.height(12.dp))
+    Scaffold(
+        topBar = {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,9 +93,22 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                             .offset(y = (2).dp)
                     )
                 }
+                Spacer(modifier = Modifier.height(20.dp))
 
             }
-            Spacer(modifier = Modifier.height(20.dp))
+        },
+        containerColor = CustomTheme.colors.background
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .verticalScroll(scroll)
+                .padding(start = 20.dp)
+                .padding(innerPadding)
+                .fillMaxSize()
+        ) {
+            Spacer(modifier = Modifier.height(12.dp))
+
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -209,6 +211,7 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
         }
     }
 }
+
 
 @Preview
 @Composable

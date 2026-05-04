@@ -24,7 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -47,7 +46,6 @@ import com.example.shop.presentation.theme.CustomTheme
 @Composable
 fun Details(modifier: Modifier = Modifier) {
     var maxLines by remember { mutableIntStateOf(3) }
-    var onClickBot by remember { mutableIntStateOf(0) }
     Box(
         modifier = Modifier
             .fillMaxSize()
