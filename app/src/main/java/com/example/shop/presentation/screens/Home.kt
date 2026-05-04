@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,7 @@ import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.components.Search
+import com.example.shop.presentation.navigation.Details
 import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Popular
@@ -69,7 +71,7 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
             },
             notificationOnClick = { },
             profileOnClick = { },
-            basketOnClick = {navController.navigate(MyCart) }
+            basketOnClick = { navController.navigate(MyCart) }
         )
     }) { innerPadding ->
         var search by remember { mutableStateOf("") }
@@ -219,7 +221,13 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     CustomCard(
-                        modifier = Modifier.weight(0.42f),
+                        modifier = Modifier
+                            .weight(0.42f)
+                            .clickable(onClick = {
+                                navController.navigate(
+                                    Details
+                                )
+                            }),
                         bitmap = ImageBitmap.imageResource(R.drawable.bot),
                         title = "Nike Air Max",
                         category = "Best Seller",

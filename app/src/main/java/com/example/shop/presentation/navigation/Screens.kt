@@ -31,3 +31,6 @@ object Favorite
 
 @Serializable
 object Details
+
+@Serializable
+object Search

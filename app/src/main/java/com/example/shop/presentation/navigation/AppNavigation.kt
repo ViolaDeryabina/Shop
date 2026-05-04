@@ -17,6 +17,7 @@ import com.example.shop.presentation.screens.MyCart
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.RegisterAccount
+import com.example.shop.presentation.screens.Search
 import com.example.shop.presentation.screens.SignIn
 
 //Назначение: Навигация между экранами
@@ -85,6 +86,14 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             composable<Details> {
                 Log.d("AppNavigation","Переход на экран Details")
                 Details(
+                    modifier = Modifier.padding(innerPadding),
+                    //navController
+                )
+            }
+            //Search
+            composable<Search> {
+                Log.d("AppNavigation","Переход на экран Details")
+                Search(
                     modifier = Modifier.padding(innerPadding),
                     //navController
                 )
