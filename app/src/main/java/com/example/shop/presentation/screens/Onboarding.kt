@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,8 +20,12 @@ import androidx.compose.ui.unit.dp
 import com.example.shop.R
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание элементов для экрана Onboard
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun OnboardingOne(modifier: Modifier = Modifier) {
+    Log.i("OnboardingOne","Создание элемента для Onboard")
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(29.dp))
         Text(
@@ -42,6 +47,7 @@ fun OnboardingOne(modifier: Modifier = Modifier) {
 
 @Composable
 fun OnboardingTwo(modifier: Modifier = Modifier) {
+    Log.i("OnboardingOne","Создание элемента для Onboard")
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(37.dp))
 
@@ -72,6 +78,7 @@ fun OnboardingTwo(modifier: Modifier = Modifier) {
 
 @Composable
 fun OnboardingThree(modifier: Modifier = Modifier) {
+    Log.i("OnboardingOne","Создание элемента для Onboard")
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(37.dp))
         Image(

@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана входа
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun SignIn(modifier: Modifier = Modifier) {
     Box(
@@ -23,6 +26,8 @@ fun SignIn(modifier: Modifier = Modifier) {
                 .background(CustomTheme.colors.block)
                 .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
-        ) {}
+        ) {
+
+        }
     }
 }

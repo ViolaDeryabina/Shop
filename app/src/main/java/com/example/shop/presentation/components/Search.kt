@@ -1,6 +1,7 @@
 package com.example.shop.presentation.components
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -20,6 +21,9 @@ import androidx.compose.ui.unit.dp
 import com.example.shop.R
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание компонента ввода информации
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Search(
     modifier: Modifier = Modifier,
@@ -30,6 +34,8 @@ fun Search(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
+    Log.i("Search","Создание компонента ввода информации")
+
     OutlinedTextField(
         modifier = modifier.height(52.dp).shadow(elevation = 11.dp),
         value = value,

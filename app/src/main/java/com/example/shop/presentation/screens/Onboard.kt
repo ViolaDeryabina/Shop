@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
@@ -34,6 +35,9 @@ import com.example.shop.presentation.navigation.Home
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.delay
 
+//Назначение: Создание экрана Onboard для отображения горизонтального пейджера
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
     Column(
@@ -51,14 +55,17 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
         ) { page ->
             when (page) {
                 0 -> {
+                    Log.i("Onboard", "Отображение первого элемента в горизонтальном пейджере")
                     OnboardingOne()
                 }
 
                 1 -> {
+                    Log.i("Onboard", "Отображение второго элемента в горизонтальном пейджере")
                     OnboardingTwo()
                 }
 
                 2 -> {
+                    Log.i("Onboard", "Отображение третьего элемента в горизонтальном пейджере")
                     OnboardingThree()
                 }
             }
@@ -73,13 +80,20 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
         Spacer(modifier= Modifier.weight(1f))
         PagerIndicator(3, pagerState.currentPage)
         Spacer(modifier = Modifier.height(spacer.dp))
-        SecondaryButton(onClick = {navController.navigate(Home)}, text = text, enabled = true, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp))
+        SecondaryButton(onClick = {
+            Log.d("Onboard", "Нажатие нопки для перехода на главный экран")
+            navController.navigate(Home)
+                                  },
+            text = text,
+            enabled = true,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp))
         Spacer(modifier = Modifier.height(36.dp))
     }
 }
 
 @Composable
 fun PagerIndicator(pageCount: Int, currentPageIndex: Int, modifier: Modifier = Modifier) {
+    Log.i("PagerIndicator", "Создание элемента PagerIndicator")
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier

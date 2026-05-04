@@ -23,7 +23,9 @@ import androidx.compose.ui.unit.dp
 import com.example.shop.R
 import com.example.shop.presentation.theme.CustomTheme
 
-
+//Назначение: Создание компонента для навигации между экранами
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun BottomBar(
     modifier: Modifier = Modifier,

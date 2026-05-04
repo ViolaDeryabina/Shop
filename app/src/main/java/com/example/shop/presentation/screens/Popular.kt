@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,16 +36,21 @@ import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана Popular для отображения популятрных позиций
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Popular(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
+    Log.i("Popular", "Создание экрана Popular")
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(CustomTheme.colors.background)
     ) {
         Column(
-            modifier = modifier.verticalScroll(scroll)
+            modifier = modifier
+                .verticalScroll(scroll)
                 .padding(start = 20.dp)
                 .fillMaxSize()
                 .background(CustomTheme.colors.background)
@@ -61,7 +67,10 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = { navController.popBackStack() }
+                        .size(44.dp), onClick = {
+                        Log.d("Popular", "Нажатие кнопки для перехода назад")
+                        navController.popBackStack()
+                    }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.direction_left),
@@ -80,7 +89,11 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     modifier = Modifier
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
-                        .size(40.dp), onClick = {navController.navigate(Catalog)}
+                        .size(40.dp), onClick = {
+                        Log.d("Popular", "Нажатие кнопки для перехода на экран Catalog")
+
+                        navController.navigate(Catalog)
+                    }
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.favorite),

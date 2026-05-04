@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,6 +40,9 @@ import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана регистрации пользователя
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController) {
     var name by rememberSaveable { mutableStateOf("") }
@@ -51,7 +55,7 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController)
 
     if(policyClick && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())buttonEnabled=true else buttonEnabled=false
 
-
+    Log.i("RegisterAccount", "Создание экрана регистрации пользователя")
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -152,7 +156,10 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController)
             }
             Spacer(modifier = Modifier.height(24.dp))
             PrimaryButton(
-                onClick = {navController.navigate(SignIn)},
+                onClick = {
+                    Log.d("RegisterAccount", "Нажатие кнопки для перехода на экран входа")
+                    navController.navigate(SignIn)
+                          },
                 text = "Зарегистрироваться",
                 modifier = Modifier.fillMaxWidth(),
                 enabled = buttonEnabled

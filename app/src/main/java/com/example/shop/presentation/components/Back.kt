@@ -1,5 +1,6 @@
 package com.example.shop.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,8 +17,13 @@ import androidx.compose.ui.unit.dp
 import com.example.shop.R
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание компонента для перехода на предыдущую страницу
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Back(modifier: Modifier = Modifier, onClick:()-> Unit) {
+    Log.i("Back","Создание компонента для перехода на предыдущую страницу")
+
     Box(
         modifier = Modifier
             .background(CustomTheme.colors.background, shape = CircleShape)
