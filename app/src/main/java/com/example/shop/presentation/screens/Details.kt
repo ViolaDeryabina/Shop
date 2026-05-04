@@ -46,7 +46,6 @@ import com.example.shop.presentation.theme.CustomTheme
 @Composable
 fun Details(modifier: Modifier = Modifier) {
     var maxLines by remember { mutableIntStateOf(3) }
-    var onClickBot by remember { mutableIntStateOf(0) }
     Box(
         modifier = Modifier
             .fillMaxSize()

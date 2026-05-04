@@ -27,12 +27,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Search
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun Search(modifier: Modifier = Modifier) {
+fun Search(modifier: Modifier = Modifier, navController: NavController) {
     var search by rememberSaveable { mutableStateOf("") }
 
     Box(
@@ -57,7 +58,7 @@ fun Search(modifier: Modifier = Modifier) {
                 IconButton(
                     modifier = Modifier
                         .size(44.dp)
-                        .background(CustomTheme.colors.block, CircleShape), onClick = {}
+                        .background(CustomTheme.colors.block, CircleShape), onClick = {navController.popBackStack()}
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.back),
@@ -136,6 +137,6 @@ fun Search(modifier: Modifier = Modifier) {
 @Composable
 private fun SearchPrev() {
     CustomTheme {
-        Search()
+        //Search()
     }
 }

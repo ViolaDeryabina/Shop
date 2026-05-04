@@ -52,6 +52,7 @@ import com.example.shop.presentation.navigation.Details
 import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Popular
+import com.example.shop.presentation.navigation.Search
 import com.example.shop.presentation.theme.CustomTheme
 
 
@@ -149,7 +150,13 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Search(
-                        value = search, onValueChange = { search = it },
+                        value = search,
+                        onValueChange = { search = it },
+                        modifier = Modifier.clickable(onClick = {
+                            navController.navigate(
+                                Search
+                            )
+                        }),
                         placeholder = {
                             Text(
                                 text = "Поиск",
