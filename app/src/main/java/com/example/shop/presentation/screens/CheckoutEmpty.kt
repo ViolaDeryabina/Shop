@@ -20,6 +20,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
@@ -33,6 +37,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
+import com.example.shop.presentation.components.DialogCheckout
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.navigation.Map
 import com.example.shop.presentation.theme.CustomTheme
@@ -55,6 +60,7 @@ fun CheckoutEmpty(
     modifier: Modifier = Modifier,
     navController: NavController = rememberNavController()
 ) {
+    var dialogShow by rememberSaveable { mutableStateOf(false) }
     Scaffold(
         topBar = {
             Row(
@@ -119,13 +125,16 @@ fun CheckoutEmpty(
                     Spacer(modifier = Modifier.height(10.dp))
                 }
                 Spacer(modifier = Modifier.height(23.dp))
-                PrimaryButton(onClick = {}, text = "Подтвердить", enabled = true)
+                PrimaryButton(onClick = {dialogShow=true}, text = "Подтвердить", enabled = true)
                 Spacer(modifier = Modifier.height(31.dp))
 
             }
         },
         containerColor = CustomTheme.colors.background
     ) { innerPadding ->
+        if(dialogShow){
+            DialogCheckout(onDismissRequest = {dialogShow=false})
+        }
         Column(
             modifier = Modifier
                 .padding(innerPadding)
