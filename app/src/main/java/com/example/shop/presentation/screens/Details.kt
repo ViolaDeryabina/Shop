@@ -2,6 +2,7 @@ package com.example.shop.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +46,7 @@ import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
 fun Details(modifier: Modifier = Modifier) {
+    var maxLines by remember { mutableIntStateOf(3) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -163,7 +170,7 @@ fun Details(modifier: Modifier = Modifier) {
                 text = "Вставка Max Air 270 обеспечивает непревзойденный комфорт в течение всего дня. Изящный дизайн Задача организации, в особенности же убеждённость некоторых оппонентов способствует повышению качества существующих финансовых и административных условий. Не следует, однако, забывать, что реализация намеченных плановых заданий требует анализа благоприятных перспектив. Мы вынуждены отталкиваться от того, что высококачественный прототип будущего проекта способствует повышению качества направлений прогрессивного развития! ",
                 style = CustomTheme.typography.BodyRegular14,
                 color = CustomTheme.colors.hint,
-                maxLines = 3,
+                maxLines = maxLines,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(5.dp))
@@ -171,7 +178,8 @@ fun Details(modifier: Modifier = Modifier) {
                 Text(
                     text = "Подробнее",
                     style = CustomTheme.typography.BodyRegular14,
-                    color = CustomTheme.colors.accent
+                    color = CustomTheme.colors.accent,
+                    modifier= Modifier.clickable(onClick = {maxLines=100})
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
