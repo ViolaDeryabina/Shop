@@ -174,7 +174,7 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController)
                     color = CustomTheme.colors.hint,
                     style = CustomTheme.typography.SubtitleRegular16
                 )
-                TextButton(onClick = {}) {
+                TextButton(onClick = {navController.navigate(SignIn)}) {
                     Text(
                         "Войти",
                         color = CustomTheme.colors.text,
