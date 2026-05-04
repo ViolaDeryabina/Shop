@@ -21,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -169,13 +170,13 @@ fun BottomBar(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun BackBar(modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun BackBar(modifier: Modifier = Modifier, onClick: () -> Unit,color: Color = CustomTheme.colors.background) {
     Column(
         modifier = modifier
             .padding(horizontal = 20.dp)
     ) {
         Spacer(modifier = Modifier.height(23.dp))
-        Back(onClick = { onClick() })
+        Back(onClick = { onClick() },color=color)
     }
 }
 

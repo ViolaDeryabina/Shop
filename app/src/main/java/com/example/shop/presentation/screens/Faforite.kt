@@ -4,14 +4,12 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -48,193 +46,190 @@ import com.example.shop.presentation.theme.CustomTheme
 @Composable
 fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
-    Scaffold(bottomBar = {
-        BottomBar(
-            selectedInt = 0,
-            homeOnClick = { },
-            favoriteOnClick = {
-                Log.d("Favorite", "Нажатие кнопки favoriteOnClick")
-                navController.navigate(Popular)
-            },
-            notificationOnClick = { },
-            profileOnClick = { },
-            basketOnClick = { navController.navigate(MyCart) }
-        )
-    }) { innerPadding ->
-        Box(
+    Scaffold(
+        bottomBar = {
+            BottomBar(
+                selectedInt = 0,
+                homeOnClick = { },
+                favoriteOnClick = {
+                    Log.d("Favorite", "Нажатие кнопки favoriteOnClick")
+                    navController.navigate(Popular)
+                },
+                notificationOnClick = { },
+                profileOnClick = { },
+                basketOnClick = { navController.navigate(MyCart) }
+            )
+        },
+        containerColor = CustomTheme.colors.background
+    ) { innerPadding ->
+        Column(
             modifier = Modifier
+                .verticalScroll(scroll)
+                .padding(start = 20.dp)
+                .padding(innerPadding)
                 .fillMaxSize()
-                .background(CustomTheme.colors.background)
         ) {
-            Column(
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
                 modifier = Modifier
-                    .verticalScroll(scroll)
-                    .padding(start = 20.dp)
-                    .padding(innerPadding)
-                    .fillMaxSize()
-                    .background(CustomTheme.colors.background)
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Spacer(modifier = Modifier.height(12.dp))
-                Row(
+                IconButton(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                        .clip(shape = CircleShape)
+                        .background(CustomTheme.colors.block)
+                        .size(44.dp), onClick = { navController.popBackStack() }
                 ) {
-                    IconButton(
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.direction_left),
+                        contentDescription = "",
                         modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(CustomTheme.colors.block)
-                            .size(44.dp), onClick = { navController.popBackStack() }
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.direction_left),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(14.dp)
-                        )
-                    }
-                    Text(
-                        text = "Избранное",
-                        style = CustomTheme.typography.BodyRegular16,
-                        color = CustomTheme.colors.text
+                            .size(14.dp)
                     )
+                }
+                Text(
+                    text = "Избранное",
+                    style = CustomTheme.typography.BodyRegular16,
+                    color = CustomTheme.colors.text
+                )
 
-                    IconButton(
+                IconButton(
+                    modifier = Modifier
+                        .clip(shape = CircleShape)
+                        .background(CustomTheme.colors.block)
+                        .size(40.dp), onClick = {
+                        Log.d(
+                            "Favorite",
+                            "Нажатие кнопки favorite для перехода на экран Catalog"
+                        )
+                        navController.navigate(Catalog)
+                    }
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.path),
+                        contentDescription = "",
+                        tint = CustomTheme.colors.red,
                         modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(CustomTheme.colors.block)
-                            .size(40.dp), onClick = {
-                            Log.d(
-                                "Favorite",
-                                "Нажатие кнопки favorite для перехода на экран Catalog"
+                            .size(24.dp)
+                        //.offset(y = (2).dp)
+                    )
+                }
+
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomCard(
+                    modifier = Modifier
+                        .weight(0.42f)
+                        .clickable(onClick = {
+                            navController.navigate(
+                                Details
                             )
-                            navController.navigate(Catalog)
-                        }
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.path),
-                            contentDescription = "",
-                            tint = CustomTheme.colors.red,
-                            modifier = Modifier
-                                .size(24.dp)
-                            //.offset(y = (2).dp)
-                        )
-                    }
+                        }),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true,
 
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    CustomCard(
-                        modifier = Modifier
-                            .weight(0.42f)
-                            .clickable(onClick = {
-                                navController.navigate(
-                                    Details
-                                )
-                            }),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true,
-
-                        )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
                     )
-                }
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
-                    )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
-                    )
-                }
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
-                    )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
-                    )
-                }
-                Spacer(modifier = Modifier.height(15.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
-                    )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    CustomCard(
-                        modifier = Modifier.weight(0.42f),
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Air Max",
-                        category = "Best Seller",
-                        price = 752,
-                        heart = true
-                    )
-                }
+                Spacer(modifier = Modifier.width(15.dp))
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
+            }
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
+            }
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
+            }
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+                CustomCard(
+                    modifier = Modifier.weight(0.42f),
+                    bitmap = ImageBitmap.imageResource(R.drawable.bot),
+                    title = "Nike Air Max",
+                    category = "Best Seller",
+                    price = 752,
+                    heart = true
+                )
             }
         }
     }
 }
+
 
 @Preview
 @Composable

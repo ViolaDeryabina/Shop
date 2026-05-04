@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,12 +22,12 @@ import com.example.shop.presentation.theme.CustomTheme
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
-fun Back(modifier: Modifier = Modifier, onClick:()-> Unit) {
+fun Back(modifier: Modifier = Modifier, onClick:()-> Unit, color: Color = CustomTheme.colors.background) {
     Log.i("Back","Создание компонента для перехода на предыдущую страницу")
 
     Box(
         modifier = Modifier
-            .background(CustomTheme.colors.background, shape = CircleShape)
+            .background(color, shape = CircleShape)
             .size(44.dp),
         contentAlignment = Alignment.Center
     ) {

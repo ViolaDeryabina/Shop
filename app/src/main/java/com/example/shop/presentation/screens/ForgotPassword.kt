@@ -1,7 +1,6 @@
 package com.example.shop.presentation.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,58 +40,52 @@ fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) 
     Scaffold(
         topBar = {
             BackBar(onClick = { navController.popBackStack() })
-        }
+        },
+        containerColor = CustomTheme.colors.block
     ) { innerPadding ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(CustomTheme.colors.block)
+                .padding(innerPadding)
+                .padding(horizontal = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .padding(horizontal = 20.dp)
-                    .background(CustomTheme.colors.block),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    text = "Забыл пароль",
-                    style = CustomTheme.typography.HeadingRegular32,
-                    color = CustomTheme.colors.text
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Введите Свою Учетную Запись Для Сброса",
-                    style = CustomTheme.typography.BodyRegular16,
-                    color = CustomTheme.colors.subTextDark,
-                    modifier = Modifier.width(250.dp),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(40.dp))
-                Input(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = email,
-                    onValueChange = { email = it },
-                    placeholder = {
-                        Text(
-                            text = "xyz@gmail.com", style = CustomTheme.typography.BodyRegular14,
-                            color = Color(0xFF6A6A6A)
-                        )
-                    },
-                    isLabel = false
-                )
-                Spacer(modifier = Modifier.height(40.dp))
-                PrimaryButton(onClick = {
-                    showPopup = true
-                }, text = "Отправить", enabled = true)
-            }
-            if (showPopup) {
-                CustomDialog(onDismissRequest = { showPopup = false }, popup = true, text = "")
-            }
-
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = "Забыл пароль",
+                style = CustomTheme.typography.HeadingRegular32,
+                color = CustomTheme.colors.text
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Введите Свою Учетную Запись Для Сброса",
+                style = CustomTheme.typography.BodyRegular16,
+                color = CustomTheme.colors.subTextDark,
+                modifier = Modifier.width(250.dp),
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            Input(
+                modifier = Modifier.fillMaxWidth(),
+                value = email,
+                onValueChange = { email = it },
+                placeholder = {
+                    Text(
+                        text = "xyz@gmail.com", style = CustomTheme.typography.BodyRegular14,
+                        color = Color(0xFF6A6A6A)
+                    )
+                },
+                isLabel = false
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            PrimaryButton(onClick = {
+                showPopup = true
+            }, text = "Отправить", enabled = true)
         }
+        if (showPopup) {
+            CustomDialog(onDismissRequest = { showPopup = false }, popup = true, text = "")
+        }
+
     }
 }
 

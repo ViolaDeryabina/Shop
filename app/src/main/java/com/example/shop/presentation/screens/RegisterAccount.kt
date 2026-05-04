@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.Input
@@ -44,7 +45,7 @@ import com.example.shop.presentation.theme.CustomTheme
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
-fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController) {
+fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -53,23 +54,45 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController)
     var policyClick by rememberSaveable { mutableStateOf(false) }
     var buttonEnabled by rememberSaveable { mutableStateOf(false) }
 
-    if(policyClick && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())buttonEnabled=true else buttonEnabled=false
+    if (policyClick && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) buttonEnabled =
+        true else buttonEnabled = false
 
     Log.i("RegisterAccount", "Создание экрана регистрации пользователя")
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CustomTheme.colors.block)
-    ) {
+    Scaffold(
+        topBar = {
+            BackBar(onClick = {})
+        },
+        bottomBar = {
+            Column() {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        "Есть аккаунт?",
+                        color = CustomTheme.colors.hint,
+                        style = CustomTheme.typography.SubtitleRegular16
+                    )
+                    TextButton(onClick = { navController.navigate(SignIn) }) {
+                        Text(
+                            "Войти",
+                            color = CustomTheme.colors.text,
+                            style = CustomTheme.typography.SubtitleRegular16
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(40.dp))
+            }
+        },
+        containerColor = CustomTheme.colors.block
+    ) { innerPadding ->
         Column(
             modifier = modifier
-                .background(CustomTheme.colors.block)
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 20.dp)
+                .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Back(onClick = {})
-            }
             Spacer(modifier = Modifier.height(11.dp))
             Text(
                 text = "Регистрация", style = CustomTheme.typography.HeadingRegular32,
@@ -118,7 +141,7 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController)
                 },
                 trailingIcon = {
                     Icon(
-                        imageVector = ImageVector.vectorResource(if(!passwordShow) R.drawable.eye_slash else R.drawable.eye_open),
+                        imageVector = ImageVector.vectorResource(if (!passwordShow) R.drawable.eye_slash else R.drawable.eye_open),
                         contentDescription = "",
                         tint = CustomTheme.colors.hint,
                         modifier = Modifier.clickable(onClick = { })
@@ -159,39 +182,23 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController)
                 onClick = {
                     Log.d("RegisterAccount", "Нажатие кнопки для перехода на экран входа")
                     navController.navigate(SignIn)
-                          },
+                },
                 text = "Зарегистрироваться",
                 modifier = Modifier.fillMaxWidth(),
                 enabled = buttonEnabled
             )
             Spacer(modifier = Modifier.weight(1f))
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    "Есть аккаунт?",
-                    color = CustomTheme.colors.hint,
-                    style = CustomTheme.typography.SubtitleRegular16
-                )
-                TextButton(onClick = {navController.navigate(SignIn)}) {
-                    Text(
-                        "Войти",
-                        color = CustomTheme.colors.text,
-                        style = CustomTheme.typography.SubtitleRegular16
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(47.dp))
+
         }
     }
 }
+
 
 @Preview
 @Composable
 private fun RegisterAccountPrev() {
     CustomTheme {
-       // RegisterAccount()
+        RegisterAccount()
     }
 
 }
