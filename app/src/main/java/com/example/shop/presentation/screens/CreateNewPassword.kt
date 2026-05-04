@@ -23,15 +23,17 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.shop.R
 import com.example.shop.presentation.components.CustomBox
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun CreateNewPassword(modifier: Modifier = Modifier) {
+fun CreateNewPassword(modifier: Modifier = Modifier, navController: NavController) {
     var password by rememberSaveable { mutableStateOf("") }
     var passwordConfirm by rememberSaveable { mutableStateOf("") }
     var passwordShow by rememberSaveable { mutableStateOf(false) }
@@ -39,7 +41,6 @@ fun CreateNewPassword(modifier: Modifier = Modifier) {
 
     var buttonEnabled by rememberSaveable { mutableStateOf(false) }
 
-    if((password.isNotEmpty()&& passwordConfirm.isNotEmpty())&&password==passwordConfirm) buttonEnabled=true else buttonEnabled=false
     Scaffold(
         topBar = {
             BackBar(onClick = {})
@@ -109,10 +110,16 @@ fun CreateNewPassword(modifier: Modifier = Modifier) {
                 )
                 Spacer(modifier = Modifier.height(40.dp))
 
-                PrimaryButton(onClick = {}, text = "Сохранить", enabled = true)
-                if(buttonEnabled){
+                PrimaryButton(onClick = {
+                    if ((password.isNotEmpty() && passwordConfirm.isNotEmpty()) && password == passwordConfirm) {
+                        buttonEnabled = true
+                        navController.navigate(SignIn)
+                    } else buttonEnabled = false
+
+                }, text = "Сохранить", enabled = true)
+                if (buttonEnabled) {
                     CustomDialog(
-                        onDismissRequest = {buttonEnabled=false},
+                        onDismissRequest = { buttonEnabled = false },
                         text = "Пароли не совпадают"
                     )
                 }
