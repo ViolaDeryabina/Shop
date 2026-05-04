@@ -37,3 +37,9 @@ object Search
 
 @Serializable
 object ForgotPassword
+
+@Serializable
+object Map
+
+@Serializable
+object CheckoutEmpty

@@ -10,10 +10,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.screens.Catalog
+import com.example.shop.presentation.screens.CheckoutEmpty
 import com.example.shop.presentation.screens.Details
 import com.example.shop.presentation.screens.Favorite
 import com.example.shop.presentation.screens.ForgotPassword
 import com.example.shop.presentation.screens.Home
+import com.example.shop.presentation.screens.Map
 import com.example.shop.presentation.screens.MyCart
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.Popular
@@ -99,6 +101,18 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             composable<ForgotPassword> {
                 Log.d("AppNavigation", "Переход на экран ForgotPassword")
                 ForgotPassword(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }
+            composable<Map> {
+                Log.d("AppNavigation", "Переход на экран Map")
+                Map(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }
+            composable<CheckoutEmpty> {
+                Log.d("AppNavigation", "Переход на экран CheckoutEmpty")
+                CheckoutEmpty(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }

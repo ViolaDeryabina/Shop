@@ -2,6 +2,7 @@ package com.example.shop.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.navigation.Map
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.flow.Flow
 
@@ -78,7 +80,7 @@ fun CheckoutEmpty(
             }
         },
         bottomBar = {
-            Column(modifier= Modifier.padding(horizontal = 20.dp)) {
+            Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                 val listBottom = listOf<Bottom>(
                     Bottom(
                         sum = 753.95f,
@@ -94,7 +96,7 @@ fun CheckoutEmpty(
                     )
                 )
                 listBottom.forEach { it ->
-                    if(it.title=="Итого"){
+                    if (it.title == "Итого") {
                         Spacer(modifier = Modifier.height(23.dp))
                     }
                     Row(
@@ -221,7 +223,13 @@ fun CheckoutEmpty(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Box(modifier = Modifier.fillMaxWidth()) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = {
+                        navController.navigate(
+                            Map
+                        )
+                    })) {
                     Image(
                         bitmap = ImageBitmap.imageResource(R.drawable.carta),
                         contentDescription = "",
