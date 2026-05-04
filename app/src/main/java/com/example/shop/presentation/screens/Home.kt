@@ -48,6 +48,7 @@ import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.components.Search
 import com.example.shop.presentation.navigation.Favorite
+import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -68,7 +69,7 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
             },
             notificationOnClick = { },
             profileOnClick = { },
-            basketOnClick = { }
+            basketOnClick = {navController.navigate(MyCart) }
         )
     }) { innerPadding ->
         var search by remember { mutableStateOf("") }

@@ -15,6 +15,9 @@ object SignIn
 object Onboard
 
 @Serializable
+object MyCart
+
+@Serializable
 object Home
 
 @Serializable

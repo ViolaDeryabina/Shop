@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.screens.Catalog
 import com.example.shop.presentation.screens.Favorite
 import com.example.shop.presentation.screens.Home
+import com.example.shop.presentation.screens.MyCart
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.RegisterAccount
@@ -71,6 +72,13 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 Favorite(
                     modifier = Modifier.padding(innerPadding),
                     navController
+                )//MyCart
+            }
+            composable<MyCart> {
+                Log.d("AppNavigation","Переход на экран MyCart")
+                MyCart(
+                    modifier = Modifier.padding(innerPadding),
+
                 )
             }
         }

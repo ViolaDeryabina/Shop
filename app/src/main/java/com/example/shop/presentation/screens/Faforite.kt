@@ -36,6 +36,7 @@ import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.navigation.Catalog
+import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -55,7 +56,7 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                               },
             notificationOnClick = { },
             profileOnClick = { },
-            basketOnClick = { }
+            basketOnClick = {navController.navigate(MyCart) }
         )
     }) { innerPadding ->
         Box(
