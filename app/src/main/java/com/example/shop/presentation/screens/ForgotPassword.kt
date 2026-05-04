@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -22,17 +23,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
-fun ForgotPassword(modifier: Modifier = Modifier) {
+fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) {
     var email by rememberSaveable { mutableStateOf("") }
+    var showPopup by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            BackBar(onClick = {})
+            BackBar(onClick = { navController.popBackStack() })
         }
     ) { innerPadding ->
         Box(
@@ -59,7 +63,7 @@ fun ForgotPassword(modifier: Modifier = Modifier) {
                     text = "Введите Свою Учетную Запись Для Сброса",
                     style = CustomTheme.typography.BodyRegular16,
                     color = CustomTheme.colors.subTextDark,
-                    modifier= Modifier.width(250.dp),
+                    modifier = Modifier.width(250.dp),
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(40.dp))
@@ -76,8 +80,14 @@ fun ForgotPassword(modifier: Modifier = Modifier) {
                     isLabel = false
                 )
                 Spacer(modifier = Modifier.height(40.dp))
-                PrimaryButton(onClick = {}, text = "Отправить", enabled = true)
+                PrimaryButton(onClick = {
+                    showPopup = true
+                }, text = "Отправить", enabled = true)
             }
+            if (showPopup) {
+                CustomDialog(onDismissRequest = { showPopup = false }, popup = true, text = "")
+            }
+
         }
     }
 }
@@ -87,6 +97,6 @@ fun ForgotPassword(modifier: Modifier = Modifier) {
 @Composable
 private fun ForgotPasswordPrev() {
     CustomTheme {
-        ForgotPassword()
+        //ForgotPassword()
     }
 }

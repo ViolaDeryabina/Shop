@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.screens.Catalog
 import com.example.shop.presentation.screens.Details
 import com.example.shop.presentation.screens.Favorite
+import com.example.shop.presentation.screens.ForgotPassword
 import com.example.shop.presentation.screens.Home
 import com.example.shop.presentation.screens.MyCart
 import com.example.shop.presentation.screens.Onboard
@@ -28,7 +29,6 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(navController = navController, startDestination = Onboard) {
-
             composable<RegisterAccount> {
                 Log.d("AppNavigation", "Переход на экран RegisterAccount")
                 RegisterAccount(
@@ -36,7 +36,6 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     navController
                 )
             }
-
             composable<Onboard> {
                 Log.d("AppNavigation", "Переход на экран Onboard")
                 Onboard(
@@ -46,7 +45,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             }
             composable<SignIn> {
                 Log.d("AppNavigation", "Переход на экран SignIn")
-                SignIn(navController=navController)
+                SignIn(navController = navController)
             }
             composable<Home> {
                 Log.d("AppNavigation", "Переход на экран Home")
@@ -91,11 +90,17 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 )
             }
             composable<Search> {
-                Log.d("AppNavigation", "Переход на экран Details")
+                Log.d("AppNavigation", "Переход на экран ForgotPassword")
                 Search(
                     modifier = Modifier.padding(innerPadding), navController
-                )
+                )//ForgotPassword
 
+            }
+            composable<ForgotPassword> {
+                Log.d("AppNavigation", "Переход на экран ForgotPassword")
+                ForgotPassword(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
             }
         }
     }

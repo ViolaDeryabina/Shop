@@ -33,6 +33,7 @@ import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.navigation.ForgotPassword
 import com.example.shop.presentation.navigation.RegisterAccount
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -116,7 +117,7 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(onClick = { }),
+                        .clickable(onClick = { navController.navigate(ForgotPassword)}),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(

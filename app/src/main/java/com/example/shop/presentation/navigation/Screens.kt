@@ -34,3 +34,6 @@ object Details
 
 @Serializable
 object Search
+
+@Serializable
+object ForgotPassword
