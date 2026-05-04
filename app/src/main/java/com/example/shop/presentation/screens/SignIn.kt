@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
+import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.theme.CustomTheme
@@ -41,7 +42,10 @@ fun SignIn(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordShow by rememberSaveable { mutableStateOf(false) }
+    var buttonEnabled by rememberSaveable { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
 
+    if(email.isNotEmpty() && password.isNotEmpty()) buttonEnabled=true else buttonEnabled=false
     Scaffold(
         topBar = {
             BackBar(onClick = {})
@@ -121,9 +125,20 @@ fun SignIn(modifier: Modifier = Modifier) {
                 }
                 Spacer(modifier = Modifier.height(41.dp))
 
-                PrimaryButton(onClick = {}, text = "Войти", enabled = true)
+                PrimaryButton(onClick = {
+                    if(!buttonEnabled){
+                        showDialog=true
+                    }
+                }, text = "Войти", enabled = true)
             }
         }
+        if(showDialog){
+            CustomDialog(
+                onDismissRequest = {showDialog=false},
+                text = "Заполните все поля",
+            )
+        }
+
     }
 
 }
@@ -161,7 +176,7 @@ fun BackBar(modifier: Modifier = Modifier, onClick: () -> Unit) {
     }
 }
 
-@Preview
+@Preview(device = "id:pixel_3", showSystemUi = false)
 @Composable
 private fun SignInPrev() {
     CustomTheme {

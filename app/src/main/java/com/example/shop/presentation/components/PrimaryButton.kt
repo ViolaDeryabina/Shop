@@ -28,7 +28,7 @@ import com.example.shop.presentation.theme.CustomTheme
 @Composable
 fun PrimaryButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    onClick: ()-> Unit,
     text: String,
     enabled: Boolean = false,
     isIcon: Boolean = false
@@ -36,7 +36,7 @@ fun PrimaryButton(
     Log.i("PrimaryButton", "Создание компонента для обработки нажатий")
 
     Button(
-        onClick = { onClick() }, modifier = modifier.height(50.dp),
+        onClick = { onClick()}, modifier = modifier.height(50.dp),
         colors = ButtonColors(
             containerColor = CustomTheme.colors.accent,
             contentColor = CustomTheme.colors.block,
