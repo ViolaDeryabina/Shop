@@ -29,6 +29,10 @@ import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.theme.CustomTheme
 
+
+//Назначение: Создание экрана создание пароля
+//Автор: Дерябина В.Н.
+//Дата: 04.05.2026
 @Composable
 fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) {
     var email by rememberSaveable { mutableStateOf("") }
