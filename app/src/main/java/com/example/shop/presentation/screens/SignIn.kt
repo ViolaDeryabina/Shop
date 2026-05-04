@@ -47,12 +47,12 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
     var buttonEnabled by rememberSaveable { mutableStateOf(false) }
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
-    if(email.isNotEmpty() && password.isNotEmpty()) buttonEnabled=true else buttonEnabled=false
+    if (email.isNotEmpty() && password.isNotEmpty()) buttonEnabled = true else buttonEnabled = false
     Scaffold(
         topBar = {
-            BackBar(onClick = {navController.popBackStack()})
+            BackBar(onClick = { navController.popBackStack() })
         },
-        bottomBar = { BottomBar(onClick = {navController.navigate(RegisterAccount)}) }
+        bottomBar = { BottomBar(onClick = { navController.navigate(RegisterAccount) }) }
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -128,15 +128,15 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
                 Spacer(modifier = Modifier.height(41.dp))
 
                 PrimaryButton(onClick = {
-                    if(!buttonEnabled){
-                        showDialog=true
+                    if (!buttonEnabled) {
+                        showDialog = true
                     }
                 }, text = "Войти", enabled = true)
             }
         }
-        if(showDialog){
+        if (showDialog) {
             CustomDialog(
-                onDismissRequest = {showDialog=false},
+                onDismissRequest = { showDialog = false },
                 text = "Заполните все поля",
             )
         }

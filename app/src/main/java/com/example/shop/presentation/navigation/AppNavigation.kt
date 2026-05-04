@@ -46,7 +46,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             }
             composable<SignIn> {
                 Log.d("AppNavigation", "Переход на экран SignIn")
-                SignIn()
+                SignIn(navController=navController)
             }
             composable<Home> {
                 Log.d("AppNavigation", "Переход на экран Home")
