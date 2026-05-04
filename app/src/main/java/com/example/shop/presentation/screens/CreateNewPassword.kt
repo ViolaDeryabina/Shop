@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
 import com.example.shop.presentation.components.CustomBox
+import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.theme.CustomTheme
@@ -34,7 +35,11 @@ fun CreateNewPassword(modifier: Modifier = Modifier) {
     var password by rememberSaveable { mutableStateOf("") }
     var passwordConfirm by rememberSaveable { mutableStateOf("") }
     var passwordShow by rememberSaveable { mutableStateOf(false) }
+    var passwordShowConfirm by rememberSaveable { mutableStateOf(false) }
 
+    var buttonEnabled by rememberSaveable { mutableStateOf(false) }
+
+    if((password.isNotEmpty()&& passwordConfirm.isNotEmpty())&&password==passwordConfirm) buttonEnabled=true else buttonEnabled=false
     Scaffold(
         topBar = {
             BackBar(onClick = {})
@@ -83,8 +88,8 @@ fun CreateNewPassword(modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Input(
                     modifier = Modifier.fillMaxWidth(),
-                    value = password,
-                    onValueChange = { password = it },
+                    value = passwordConfirm,
+                    onValueChange = { passwordConfirm = it },
                     placeholder = {
                         Text(
                             text = "********", style = CustomTheme.typography.BodyRegular14,
@@ -93,18 +98,24 @@ fun CreateNewPassword(modifier: Modifier = Modifier) {
                     },
                     trailingIcon = {
                         Icon(
-                            imageVector = ImageVector.vectorResource(if (!passwordShow) R.drawable.eye_slash else R.drawable.eye_open),
+                            imageVector = ImageVector.vectorResource(if (!passwordShowConfirm) R.drawable.eye_slash else R.drawable.eye_open),
                             contentDescription = "",
                             tint = CustomTheme.colors.hint,
                             modifier = Modifier.clickable(onClick = { })
                         )
                     },
-                    visualTransformation = if (passwordShow) PasswordVisualTransformation() else VisualTransformation.None,
+                    visualTransformation = if (passwordShowConfirm) PasswordVisualTransformation() else VisualTransformation.None,
                     text = "Подтверждение пароля"
                 )
                 Spacer(modifier = Modifier.height(40.dp))
 
                 PrimaryButton(onClick = {}, text = "Сохранить", enabled = true)
+                if(buttonEnabled){
+                    CustomDialog(
+                        onDismissRequest = {buttonEnabled=false},
+                        text = "Пароли не совпадают"
+                    )
+                }
 
             }
         )
