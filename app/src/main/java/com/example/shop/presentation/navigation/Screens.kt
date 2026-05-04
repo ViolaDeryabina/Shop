@@ -28,3 +28,6 @@ object Catalog
 
 @Serializable
 object Favorite
+
+@Serializable
+object Details

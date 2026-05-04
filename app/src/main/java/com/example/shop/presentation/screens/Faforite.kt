@@ -2,6 +2,7 @@ package com.example.shop.presentation.screens
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.navigation.Catalog
+import com.example.shop.presentation.navigation.Details
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Popular
 import com.example.shop.presentation.theme.CustomTheme
@@ -51,12 +53,12 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
             selectedInt = 0,
             homeOnClick = { },
             favoriteOnClick = {
-                Log.d("Favorite","Нажатие кнопки favoriteOnClick")
+                Log.d("Favorite", "Нажатие кнопки favoriteOnClick")
                 navController.navigate(Popular)
-                              },
+            },
             notificationOnClick = { },
             profileOnClick = { },
-            basketOnClick = {navController.navigate(MyCart) }
+            basketOnClick = { navController.navigate(MyCart) }
         )
     }) { innerPadding ->
         Box(
@@ -104,9 +106,12 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                             .clip(shape = CircleShape)
                             .background(CustomTheme.colors.block)
                             .size(40.dp), onClick = {
-                            Log.d("Favorite","Нажатие кнопки favorite для перехода на экран Catalog")
-                                navController.navigate(Catalog)
-                            }
+                            Log.d(
+                                "Favorite",
+                                "Нажатие кнопки favorite для перехода на экран Catalog"
+                            )
+                            navController.navigate(Catalog)
+                        }
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.path),
@@ -114,7 +119,7 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                             tint = CustomTheme.colors.red,
                             modifier = Modifier
                                 .size(24.dp)
-                                //.offset(y = (2).dp)
+                            //.offset(y = (2).dp)
                         )
                     }
 
@@ -127,13 +132,20 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     CustomCard(
-                        modifier = Modifier.weight(0.42f),
+                        modifier = Modifier
+                            .weight(0.42f)
+                            .clickable(onClick = {
+                                navController.navigate(
+                                    Details
+                                )
+                            }),
                         bitmap = ImageBitmap.imageResource(R.drawable.bot),
                         title = "Nike Air Max",
                         category = "Best Seller",
                         price = 752,
-                        heart = true
-                    )
+                        heart = true,
+
+                        )
                     Spacer(modifier = Modifier.width(15.dp))
                     CustomCard(
                         modifier = Modifier.weight(0.42f),
@@ -228,6 +240,6 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
 @Composable
 private fun PopularPrev() {
     CustomTheme {
-       //Favorite()
+        //Favorite()
     }
 }

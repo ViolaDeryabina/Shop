@@ -29,7 +29,8 @@ fun CardButton(modifier: Modifier = Modifier, bitmap: Int) {
     ) {
         Image(
             bitmap = ImageBitmap.imageResource(bitmap),
-            contentDescription = ""
+            contentDescription = "",
+            modifier= Modifier.size(width = 45.dp, height = 23.62.dp)
         )
     }
 }

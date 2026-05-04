@@ -47,6 +47,7 @@ import com.example.shop.presentation.theme.CustomTheme
 @Composable
 fun Details(modifier: Modifier = Modifier) {
     var maxLines by remember { mutableIntStateOf(3) }
+    var onClickBot by remember { mutableIntStateOf(0) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -133,7 +134,14 @@ fun Details(modifier: Modifier = Modifier) {
                 color = CustomTheme.colors.text
             )
             Spacer(modifier = Modifier.height(65.dp))
-
+            val rowBitmap = listOf(
+                R.drawable.hero_image,
+                R.drawable.two_image,
+                R.drawable.three_image,
+                R.drawable.bot,
+                R.drawable.five_inage,
+                R.drawable.hero_image
+            )
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Image(
                     bitmap = ImageBitmap.imageResource(R.drawable.bot_podium),
@@ -149,16 +157,10 @@ fun Details(modifier: Modifier = Modifier) {
                         .size(width = 241.dp, height = 125.dp)
                         .offset(y = (-50).dp)
                 )
+
             }
             Spacer(modifier = Modifier.height(37.dp))
-            val rowBitmap = listOf(
-                R.drawable.bot,
-                R.drawable.bot,
-                R.drawable.bot,
-                R.drawable.bot,
-                R.drawable.bot,
-                R.drawable.bot
-            )
+
             LazyRow() {
                 items(rowBitmap) { item ->
                     CardButton(bitmap = item)
