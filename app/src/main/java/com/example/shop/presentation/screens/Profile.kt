@@ -48,10 +48,13 @@ import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.ProfileHelper
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.theme.CustomTheme
+import kotlinx.coroutines.launch
 
 //Назначение: Создание экрана отображение профиля пользователя
 //Автор: Дерябина В.Н.
@@ -64,16 +67,16 @@ data class DataProfile(
 @Composable
 fun Profile(modifier: Modifier = Modifier, navController: NavController = rememberNavController()) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable { mutableStateOf("") }
 
-
+    logInfo("Profile", "Создание экрана", "Отрисовка экрана для просмотра профиля")
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet(modifier = Modifier.fillMaxSize()) {
-
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -148,13 +151,13 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                                         )
                                         Spacer(modifier = Modifier.height(30.dp))
                                         Row() {
-                                            ProfileHelper(icon=it.icon, title = it.title)
+                                            ProfileHelper(icon = it.icon, title = it.title)
                                         }
 
                                     }
 
                                 } else {
-                                    ProfileHelper(icon=it.icon, title = it.title)
+                                    ProfileHelper(icon = it.icon, title = it.title)
                                 }
                             }
                             Spacer(modifier = Modifier.height(30.dp))
@@ -178,7 +181,16 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                         modifier = Modifier
                             .clip(shape = CircleShape)
                             .background(CustomTheme.colors.block)
-                            .size(44.dp), onClick = { navController.popBackStack() }
+                            .size(44.dp), onClick = {
+                            scope.launch {
+                                logDebug(
+                                    "Profile",
+                                    "Взаимодействие",
+                                    "Открытие бокового меню (Drawer)"
+                                )
+                                drawerState.open()
+                            }
+                        }
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.clock_1),
@@ -219,7 +231,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
             },
             bottomBar = {
                 BottomBar(
-                    selectedInt = 0,
+                    selectedInt = 3,
                     homeOnClick = { },
                     favoriteOnClick = {
                         Log.d("Home", "Нажатие на кнопку favorite для перехода на форму Favorite")
