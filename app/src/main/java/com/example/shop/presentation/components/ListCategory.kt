@@ -14,9 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
-//Назначение: Создание компонента отображения категорий с строки с прокруткой
+//Назначение:  Функция для создания компонента для отображения категорий с строки с прокруткой
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
@@ -25,7 +26,7 @@ fun ListCategory(
     onClick: () -> Unit,
     list: List<String>
 ) {
-    Log.i("ListCategory","Создание компонента отображения категорий с строки с прокруткой")
+    logInfo("ListCategory","Создание компонента"," Лист категорий")
 
     LazyRow(modifier=modifier) {
         items(list) { item ->

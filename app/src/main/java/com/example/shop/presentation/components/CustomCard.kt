@@ -35,10 +35,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 import com.example.shop.presentation.theme.Text
 
-//Назначение: Создание компонента отображения карточек товара
+//Назначение: Функция для создания компонента для отображения карточек товара
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
@@ -48,9 +49,10 @@ fun CustomCard(
     title: String,
     category: String,
     price: Int,
-    heart: Boolean=false
+    heart: Boolean=false,
+    icon: @Composable (() -> Unit),
 ) {
-    Log.i("CustomCard","Создание компонента отображения карточек товара")
+    logInfo("CustomCard","Создание компонента","Карточка товара")
 
     Card(
         modifier = modifier,
@@ -83,7 +85,6 @@ fun CustomCard(
                 )
 
             }
-
             Image(
                 bitmap = bitmap,
                 contentDescription = "",
@@ -117,18 +118,9 @@ fun CustomCard(
                         .background(CustomTheme.colors.accent)
                         .size(40.dp), onClick = {}
                 ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.add),
-                        contentDescription = "",
-                        tint = CustomTheme.colors.block,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .offset(y = (2).dp)
-                    )
+                    icon.invoke()
                 }
-
             }
-
         }
     }
 }
@@ -143,7 +135,17 @@ private fun CustomCardPrev() {
                 bitmap = ImageBitmap.imageResource(R.drawable.bot),
                 title = "Nike Air Max",
                 category = "Best Seller",
-                price = 752
+                price = 752,
+                icon = {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.add),
+                        contentDescription = "",
+                        tint = CustomTheme.colors.block,
+                        modifier = Modifier
+                            .size(30.dp)
+                            .offset(y = (2).dp)
+                    )
+                }
             )
             Spacer(modifier = Modifier.width(15.dp))
             CustomCard(
@@ -151,7 +153,17 @@ private fun CustomCardPrev() {
                 bitmap = ImageBitmap.imageResource(R.drawable.bot),
                 title = "Nike Air Max",
                 category = "Best Seller",
-                price = 752
+                price = 752,
+                icon = {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.cart),
+                        contentDescription = "",
+                        tint = CustomTheme.colors.block,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .offset(y = (2).dp)
+                    )
+                }
             )
         }
 

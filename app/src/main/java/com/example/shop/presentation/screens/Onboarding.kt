@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
 //Назначение: Создание элементов для экрана Onboard
@@ -25,7 +26,8 @@ import com.example.shop.presentation.theme.CustomTheme
 //Дата: 30.04.2026
 @Composable
 fun OnboardingOne(modifier: Modifier = Modifier) {
-    Log.i("OnboardingOne","Создание элемента для Onboard")
+    logInfo("OnboardingOne","Создание элемента","элемента для Onboard")
+
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(29.dp))
         Text(
@@ -47,7 +49,8 @@ fun OnboardingOne(modifier: Modifier = Modifier) {
 
 @Composable
 fun OnboardingTwo(modifier: Modifier = Modifier) {
-    Log.i("OnboardingOne","Создание элемента для Onboard")
+    logInfo("OnboardingTwo","Создание элемента","элемента для Onboard")
+
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(37.dp))
 
@@ -78,7 +81,7 @@ fun OnboardingTwo(modifier: Modifier = Modifier) {
 
 @Composable
 fun OnboardingThree(modifier: Modifier = Modifier) {
-    Log.i("OnboardingOne","Создание элемента для Onboard")
+    logInfo("OnboardingThree","Создание элемента","элемента для Onboard")
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(37.dp))
         Image(

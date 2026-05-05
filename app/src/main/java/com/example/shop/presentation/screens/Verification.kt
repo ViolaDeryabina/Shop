@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.components.Input
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.delay
 import java.sql.Time
@@ -47,6 +49,7 @@ fun Verification(
     var index6 by remember { mutableStateOf("") }
 
     var time by remember { mutableStateOf(60) }
+    logInfo("Verification","Создание экрана","Отрисовка экрана Verification")
 
     LaunchedEffect(time) {
         if (time > 0) {
@@ -61,7 +64,10 @@ fun Verification(
 
     Scaffold(
         topBar = {
-            BackBar(onClick = { navController.popBackStack() })
+            BackBar(onClick = {
+                logDebug("Verification","Нажатие на кнопку","Переход назад по стэку")
+                navController.popBackStack()
+            })
         },
         containerColor = CustomTheme.colors.block
     ) { innerPadding ->
@@ -107,7 +113,6 @@ fun Verification(
                             }
                         },
                         modifier = Modifier.size(width = 46.dp, height = 99.dp),
-                        isLabel = false
                     )
                 }
             }

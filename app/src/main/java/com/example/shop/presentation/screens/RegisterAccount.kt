@@ -38,6 +38,8 @@ import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -57,7 +59,8 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController=
     if (policyClick && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) buttonEnabled =
         true else buttonEnabled = false
 
-    Log.i("RegisterAccount", "Создание экрана регистрации пользователя")
+    logInfo("RegisterAccount","Создание экрана","Отрисовка экрана регистрации пользователя")
+
     Scaffold(
         topBar = {
             BackBar(onClick = {})
@@ -74,7 +77,9 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController=
                         color = CustomTheme.colors.hint,
                         style = CustomTheme.typography.SubtitleRegular16
                     )
-                    TextButton(onClick = { navController.navigate(SignIn) }) {
+                    TextButton(onClick = {
+                        logDebug("RegisterAccount","Нажатие на кнопку","Переход на экран SignIn")
+                        navController.navigate(SignIn) }) {
                         Text(
                             "Войти",
                             color = CustomTheme.colors.text,
@@ -180,7 +185,7 @@ fun RegisterAccount(modifier: Modifier = Modifier, navController: NavController=
             Spacer(modifier = Modifier.height(24.dp))
             PrimaryButton(
                 onClick = {
-                    Log.d("RegisterAccount", "Нажатие кнопки для перехода на экран входа")
+                    logDebug("RegisterAccount","Нажатие на кнопку","Переход на экран SignIn")
                     navController.navigate(SignIn)
                 },
                 text = "Зарегистрироваться",

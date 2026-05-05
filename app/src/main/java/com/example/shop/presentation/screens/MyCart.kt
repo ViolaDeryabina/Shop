@@ -24,7 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,45 +36,32 @@ import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CartBasket
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
+import com.example.shop.presentation.navigation.Catalog
+import com.example.shop.presentation.navigation.CheckoutEmpty
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана для отображение корзины
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
-fun MyCart(modifier: Modifier = Modifier,navController: NavController= rememberNavController()) {
+fun MyCart(modifier: Modifier = Modifier,navController: NavController) {
     val scroll = rememberScrollState()
+    logInfo("MyCart","Создание экрана","Отрисовка экрана MyCart")
+
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = { }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.direction_left),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(14.dp)
-                    )
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Корзина",
-                        style = CustomTheme.typography.BodyRegular16,
-                        color = CustomTheme.colors.text
-                    )
-                }
-
-            }
+            Spacer(modifier = Modifier.height(12.dp))
+            ScreenHeader(
+                title = "Корзина",
+                onBackClick = {
+                    logDebug("MyCart","Нажатие кнопки","Переход назад по стэку")
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp),
+            )
         },
         containerColor = CustomTheme.colors.background
     ){ innerPadding ->
@@ -92,19 +81,19 @@ fun MyCart(modifier: Modifier = Modifier,navController: NavController= rememberN
                 ) {
                     Spacer(modifier = Modifier.height(48.dp))
                     CartBasket(
-                        bitmap = R.drawable.bot,
+                        bitmap =  ImageBitmap.imageResource(R.drawable.bot),
                         title = "Nike Club Max",
                         price = 584
                     )
                     Spacer(modifier = Modifier.height(14.dp))
                     CartBasket(
-                        bitmap = R.drawable.bot,
+                        bitmap =  ImageBitmap.imageResource(R.drawable.bot),
                         title = "Nike Club Max",
                         price = 584
                     )
                     Spacer(modifier = Modifier.height(14.dp))
                     CartBasket(
-                        bitmap = R.drawable.bot,
+                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
                         title = "Nike Club Max",
                         price = 584
                     )
@@ -178,7 +167,10 @@ fun MyCart(modifier: Modifier = Modifier,navController: NavController= rememberN
                     }
                     Spacer(modifier= Modifier.height(33.dp))
                     PrimaryButton(
-                        onClick = {},
+                        onClick = {
+                            logDebug("MyCart","Нажатие кнопки","Переход на экран CheckoutEmpty для оформления заказа")
+                            navController.navigate(CheckoutEmpty)
+                        },
                         text = "Оформить заказ",
                         enabled = true,
                         modifier = Modifier.fillMaxWidth()
@@ -196,6 +188,6 @@ fun MyCart(modifier: Modifier = Modifier,navController: NavController= rememberN
 @Composable
 private fun MyCartPrev() {
     CustomTheme {
-        MyCart()
+//        MyCart()
     }
 }

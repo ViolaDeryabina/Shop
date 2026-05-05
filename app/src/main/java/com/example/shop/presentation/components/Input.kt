@@ -14,9 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
-//Назначение: Создание компонента ввода информации
+//Назначение: Функция для создания компонента ввода данных
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
@@ -24,17 +25,16 @@ fun Input(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
-    isLabel: Boolean = true,
-    text: String = "Ваше имя",
+    text: String = "",
     placeholder: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
-    Log.i("Input","Создание компонента ввода информации")
+    logInfo("Input","Создание компонента","Input")
 
     Column() {
-        if(isLabel){
+        if(text.isNotEmpty()){
             Text(
                 text = text,
                 style = CustomTheme.typography.BodyMedium16,

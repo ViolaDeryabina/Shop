@@ -31,8 +31,12 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.CustomCard
+import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -40,50 +44,19 @@ import com.example.shop.presentation.theme.CustomTheme
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
-fun Popular(modifier: Modifier = Modifier, navController: NavController) {
+fun Popular(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
     val scroll = rememberScrollState()
-    Log.i("Popular", "Создание экрана Popular")
+    logInfo("Popular","Создание экрана","Отрисовка экрана Popular")
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = {
-                        Log.d("Popular", "Нажатие кнопки для перехода назад")
-                        navController.popBackStack()
-                    }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.direction_left),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(14.dp)
-                    )
-                }
-                Text(
-                    text = "Популярное",
-                    style = CustomTheme.typography.BodyRegular16,
-                    color = CustomTheme.colors.text
-                )
-
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(40.dp), onClick = {
-                        Log.d("Popular", "Нажатие кнопки для перехода на экран Catalog")
-
-                        navController.navigate(Catalog)
-                    }
-                ) {
+            ScreenHeader(
+                title = "Популярное",
+                onBackClick = {
+                    logDebug("Popular","Нажатие кнопки","Переход нахад по стэку")
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp),
+                icon = {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.favorite),
                         contentDescription = "",
@@ -93,9 +66,7 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                             .offset(y = (2).dp)
                     )
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-
-            }
+            )
         },
         containerColor = CustomTheme.colors.background
     ) { innerPadding ->
@@ -121,7 +92,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -130,7 +111,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
@@ -146,7 +137,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -155,7 +156,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
@@ -171,7 +182,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -180,7 +201,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
@@ -196,7 +227,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -205,7 +246,17 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
         }
@@ -217,6 +268,6 @@ fun Popular(modifier: Modifier = Modifier, navController: NavController) {
 @Composable
 private fun PopularPrev() {
     CustomTheme {
-        //Popular()
+        Popular()
     }
 }

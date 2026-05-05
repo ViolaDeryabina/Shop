@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +21,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,80 +40,72 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.CardButton
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана просмотра информации о товаре
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
-fun Details(modifier: Modifier = Modifier) {
+fun Details(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
     var maxLines by remember { mutableIntStateOf(3) }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CustomTheme.colors.background)
-    ) {
+    logInfo("Details","Создание экрана","Создание экрана Details")
+
+    Scaffold(
+        topBar = {
+            ScreenHeader(
+                title = "Sneaker Shop",
+                onBackClick = {
+                    logDebug("Details","Нажатие на кнопку","Переход назад по стэку")
+
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp),
+                icon = {
+                    Box(contentAlignment = Alignment.TopEnd) {
+                        IconButton(
+                            modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(CustomTheme.colors.block)
+                                .size(40.dp), onClick = {}
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.bag_2),
+                                contentDescription = "",
+                                tint = CustomTheme.colors.text,
+                                modifier = Modifier
+                                    .size(24.dp)
+
+                            )
+                        }
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .offset(x = (-5).dp)
+                                .background(
+                                    CustomTheme.colors.red,
+                                    CircleShape
+                                )
+                        )
+                    }
+                }
+            )
+        },
+        containerColor = CustomTheme.colors.background
+    ) { innerPadding ->
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(horizontal = 20.dp)
-                .background(CustomTheme.colors.background)
+                .padding(innerPadding)
         ) {
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .background(CustomTheme.colors.block, CircleShape), onClick = {}
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.back),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(25.dp)
-                    )
-                }
-                Text(
-                    text = "Sneaker Shop",
-                    style = CustomTheme.typography.HeadingSemiBold16,
-                    color = CustomTheme.colors.text
-                )
-
-                Box(contentAlignment = Alignment.TopEnd) {
-                    IconButton(
-                        modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(CustomTheme.colors.block)
-                            .size(40.dp), onClick = {}
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.bag_2),
-                            contentDescription = "",
-                            tint = CustomTheme.colors.text,
-                            modifier = Modifier
-                                .size(24.dp)
-
-                        )
-                    }
-                    Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .offset(x = (-5).dp)
-                            .background(
-                                CustomTheme.colors.red,
-                                CircleShape
-                            )
-                    )
-                }
-
-            }
             Spacer(modifier = Modifier.height(26.dp))
             Text(
                 modifier = Modifier.width(259.dp),
@@ -174,12 +168,12 @@ fun Details(modifier: Modifier = Modifier) {
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(5.dp))
-            Row(modifier= Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 Text(
                     text = "Подробнее",
                     style = CustomTheme.typography.BodyRegular14,
                     color = CustomTheme.colors.accent,
-                    modifier= Modifier.clickable(onClick = {maxLines=100})
+                    modifier = Modifier.clickable(onClick = { maxLines = 100 })
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -198,13 +192,25 @@ fun Details(modifier: Modifier = Modifier) {
                     )
                 }
                 Spacer(modifier = Modifier.width(18.dp))
-                PrimaryButton(onClick = {}, text = "В корзину", isIcon = true, enabled = true, modifier = Modifier.weight(0.8f))
+                PrimaryButton(
+                    onClick = {}, text = "В корзину",
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.bag_2),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }, enabled = true, modifier = Modifier.weight(0.8f)
+                )
             }
             Spacer(modifier = Modifier.height(40.dp))
 
         }
     }
 }
+
 
 @Preview
 @Composable

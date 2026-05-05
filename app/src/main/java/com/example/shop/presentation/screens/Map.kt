@@ -24,33 +24,28 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
+import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана для отображения карты
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Map(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
+    logInfo("Map","Создание экрана","Отрисовка экрана Карта")
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Back(onClick = { navController.popBackStack() }, color = CustomTheme.colors.block)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Карта",
-                        style = CustomTheme.typography.HeadingSemiBold16,
-                        color = CustomTheme.colors.text
-                    )
-                }
-            }
+            Spacer(modifier = Modifier.height(12.dp))
+            ScreenHeader(
+                title = "Карта",
+                onBackClick = {
+                    logDebug("Map","Нажатие на кнопку","Переход назад по стэку")
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp),
+            )
         },
         containerColor = CustomTheme.colors.background
     ) { innerPadding->
@@ -62,7 +57,6 @@ fun Map(modifier: Modifier = Modifier, navController: NavController= rememberNav
                 contentScale = ContentScale.FillHeight
             )
         }
-
     }
 }
 

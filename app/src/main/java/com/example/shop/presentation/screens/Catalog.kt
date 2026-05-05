@@ -1,23 +1,29 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -27,6 +33,8 @@ import com.example.shop.data.Product
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
 //Назначение: Создание экрана каталог
@@ -41,11 +49,16 @@ fun Catalog(modifier: Modifier = Modifier, navController: NavController = rememb
             Product("Nike Air Max", "Best Seller", 752, R.drawable.bot)
         }
     }
+    logInfo("Catalog","Создание компонента","Catalog")
+
     Scaffold(
         topBar = {
             ScreenHeader(
                 title = "Outdoor",
-                onBackClick = { navController.popBackStack() },
+                onBackClick = {
+                    logDebug("Catalog","Нажатие на кнопку","Переход назад по стэку")
+                    navController.popBackStack()
+                },
                 modifier = Modifier.padding(horizontal = 20.dp)
             )
         },
@@ -81,7 +94,17 @@ fun Catalog(modifier: Modifier = Modifier, navController: NavController = rememb
                     title = product.title,
                     category = product.category,
                     price = product.price,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
         }

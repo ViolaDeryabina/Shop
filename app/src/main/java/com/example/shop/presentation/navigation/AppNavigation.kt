@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.screens.Catalog
 import com.example.shop.presentation.screens.CheckoutEmpty
 import com.example.shop.presentation.screens.Details
@@ -19,6 +20,7 @@ import com.example.shop.presentation.screens.Map
 import com.example.shop.presentation.screens.MyCart
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.Popular
+import com.example.shop.presentation.screens.Profile
 import com.example.shop.presentation.screens.RegisterAccount
 import com.example.shop.presentation.screens.Search
 import com.example.shop.presentation.screens.SignIn
@@ -33,93 +35,98 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(navController = navController, startDestination = Onboard) {
             composable<RegisterAccount> {
-                Log.d("AppNavigation", "Переход на экран RegisterAccount")
+                logDebug("AppNavigation","Переход","Экран RegisterAccount")
                 RegisterAccount(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Onboard> {
-                Log.d("AppNavigation", "Переход на экран Onboard")
+                logDebug("AppNavigation","Переход","Экран Onboard")
                 Onboard(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<SignIn> {
-                Log.d("AppNavigation", "Переход на экран SignIn")
+                logDebug("AppNavigation","Переход","Экран SignIn")
                 SignIn(navController = navController)
             }
             composable<Home> {
-                Log.d("AppNavigation", "Переход на экран Home")
+                logDebug("AppNavigation","Переход","Экран Home")
                 Home(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Popular> {
-                Log.d("AppNavigation", "Переход на экран Popular")
+                logDebug("AppNavigation","Переход","Экран Popular")
                 Popular(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Catalog> {
-                Log.d("AppNavigation", "Переход на экран Catalog")
+                logDebug("AppNavigation","Переход","Экран Catalog")
                 Catalog(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Favorite> {
-                Log.d("AppNavigation", "Переход на экран Favorite")
+                logDebug("AppNavigation","Переход","Экран Favorite")
                 Favorite(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<MyCart> {
-                Log.d("AppNavigation", "Переход на экран MyCart")
+                logDebug("AppNavigation","Переход","Экран MyCart")
                 MyCart(
-                    modifier = Modifier.padding(innerPadding),
-
+                    modifier = Modifier.padding(innerPadding),navController
                     )
             }
             composable<Details> {
-                Log.d("AppNavigation", "Переход на экран Details")
+                logDebug("AppNavigation","Переход","Экран Details")
                 Details(
                     modifier = Modifier.padding(innerPadding),
                     //navController
                 )
             }
             composable<Search> {
-                Log.d("AppNavigation", "Переход на экран ForgotPassword")
+                logDebug("AppNavigation","Переход","Экран ForgotPassword")
                 Search(
                     modifier = Modifier.padding(innerPadding), navController
-                )//ForgotPassword
+                )
 
             }
             composable<ForgotPassword> {
-                Log.d("AppNavigation", "Переход на экран ForgotPassword")
+                logDebug("AppNavigation","Переход","Экран ForgotPassword")
                 ForgotPassword(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }
             composable<Map> {
-                Log.d("AppNavigation", "Переход на экран Map")
+                logDebug("AppNavigation","Переход","Экран Map")
                 Map(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }
             composable<CheckoutEmpty> {
-                Log.d("AppNavigation", "Переход на экран CheckoutEmpty")
+                logDebug("AppNavigation","Переход","Экран CheckoutEmpty")
                 CheckoutEmpty(
                     modifier = Modifier.padding(innerPadding), navController
                 )
-            }//Verification
+            }
             composable<Verification> {
-                Log.d("AppNavigation", "Переход на экран Verification")
+                logDebug("AppNavigation","Переход","Экран Verification")
                 Verification(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }
+            composable<Profile> {
+                logDebug("AppNavigation","Переход","Экран Profile")
+                Profile(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }

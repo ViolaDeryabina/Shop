@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,9 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
@@ -31,9 +30,13 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CustomCard
+import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.navigation.Details
 import com.example.shop.presentation.navigation.MyCart
@@ -44,20 +47,59 @@ import com.example.shop.presentation.theme.CustomTheme
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
-fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
+fun Favorite(
+    modifier: Modifier = Modifier,
+    navController: NavController = rememberNavController()
+) {
     val scroll = rememberScrollState()
+    logInfo("Favorite","Создание экрана","Отрисовка экрана Избранное")
+
     Scaffold(
+        topBar = {
+            Spacer(modifier = Modifier.height(12.dp))
+            ScreenHeader(
+                title = "Избранное",
+                onBackClick = {
+                    logDebug("Favorite","Нажатие на кнопку","Переход назад по стэку")
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp),
+                icon = {
+                    IconButton(
+                        modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .background(CustomTheme.colors.block)
+                            .size(40.dp), onClick = {
+                            logDebug("Favorite","Нажатие на кнопку","Переход на экран Catalog")
+                            navController.navigate(Catalog)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.path),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.red,
+                            modifier = Modifier
+                                .size(24.dp)
+                        )
+                    }
+                }
+            )
+        },
         bottomBar = {
             BottomBar(
                 selectedInt = 0,
                 homeOnClick = { },
                 favoriteOnClick = {
-                    Log.d("Favorite", "Нажатие кнопки favoriteOnClick")
+                    logDebug("Favorite","Нажатие на кнопку","Переход на экран favoriteOnClick")
+
                     navController.navigate(Popular)
                 },
                 notificationOnClick = { },
                 profileOnClick = { },
-                basketOnClick = { navController.navigate(MyCart) }
+                basketOnClick = {
+                    logDebug("Favorite","Нажатие на кнопку","Переход на экран MyCart")
+                    navController.navigate(MyCart)
+                }
             )
         },
         containerColor = CustomTheme.colors.background
@@ -69,56 +111,7 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(44.dp), onClick = { navController.popBackStack() }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.direction_left),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(14.dp)
-                    )
-                }
-                Text(
-                    text = "Избранное",
-                    style = CustomTheme.typography.BodyRegular16,
-                    color = CustomTheme.colors.text
-                )
 
-                IconButton(
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .background(CustomTheme.colors.block)
-                        .size(40.dp), onClick = {
-                        Log.d(
-                            "Favorite",
-                            "Нажатие кнопки favorite для перехода на экран Catalog"
-                        )
-                        navController.navigate(Catalog)
-                    }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.path),
-                        contentDescription = "",
-                        tint = CustomTheme.colors.red,
-                        modifier = Modifier
-                            .size(24.dp)
-                        //.offset(y = (2).dp)
-                    )
-                }
-
-            }
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier
@@ -139,8 +132,18 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     category = "Best Seller",
                     price = 752,
                     heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
 
-                    )
+                )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
                     modifier = Modifier.weight(0.42f),
@@ -148,7 +151,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
@@ -164,7 +177,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -173,7 +196,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
@@ -189,7 +222,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -198,7 +241,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(15.dp))
@@ -214,7 +267,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
@@ -223,7 +286,17 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
-                    heart = true
+                    heart = true,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
         }
@@ -235,6 +308,6 @@ fun Favorite(modifier: Modifier = Modifier, navController: NavController) {
 @Composable
 private fun PopularPrev() {
     CustomTheme {
-        //Favorite()
+        Favorite()
     }
 }

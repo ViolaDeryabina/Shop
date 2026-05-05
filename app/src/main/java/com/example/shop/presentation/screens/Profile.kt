@@ -8,15 +8,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,7 +40,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -47,30 +47,119 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.Input
+import com.example.shop.presentation.components.ProfileHelper
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана отображение профиля пользователя
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
+data class DataProfile(
+    val icon: Int,
+    val title: String
+)
+
 @Composable
 fun Profile(modifier: Modifier = Modifier, navController: NavController = rememberNavController()) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable { mutableStateOf("") }
 
+
     ModalNavigationDrawer(
         drawerContent = {
-            ModalDrawerSheet {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState())
-                ) {
+            ModalDrawerSheet(modifier = Modifier.fillMaxSize()) {
 
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(CustomTheme.colors.accent),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    Image(
+                        bitmap = ImageBitmap.imageResource(R.drawable.home_1),
+                        contentDescription = "",
+                        contentScale = ContentScale.FillHeight,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(top = 49.dp, bottom = 96.dp),
+                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(start = 20.dp, top = 30.dp),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Top,
+                    ) {
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Image(
+                            bitmap = ImageBitmap.imageResource(R.drawable.profile_icon),
+                            contentDescription = "",
+                            modifier = Modifier.size(96.dp)
+                        )
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(
+                            text = "Emmanuel Oyiboke",
+                            style = CustomTheme.typography.BodyRegular20,
+                            color = CustomTheme.colors.block
+                        )
+                        Spacer(modifier = Modifier.height(55.dp))
+
+                        val list = listOf(
+                            DataProfile(
+                                icon = R.drawable.profile,
+                                title = "Профиль"
+                            ),
+                            DataProfile(
+                                icon = R.drawable.bag_2,
+                                title = "Корзина"
+                            ),
+                            DataProfile(
+                                icon = R.drawable.favorite,
+                                title = "Избранное"
+                            ), DataProfile(
+                                icon = R.drawable.orders,
+                                title = "Заказы"
+                            ), DataProfile(
+                                icon = R.drawable.notification,
+                                title = "Уведомления"
+                            ), DataProfile(
+                                icon = R.drawable.settings,
+                                title = "Настройки"
+                            ),
+                            DataProfile(
+                                icon = R.drawable.logout,
+                                title = "Выйти"
+                            )
+                        )
+                        list.forEach { it ->
+                            Row() {
+                                if (it.title == "Выйти") {
+                                    Column() {
+                                        Image(
+                                            bitmap = ImageBitmap.imageResource(R.drawable.vector_1791),
+                                            contentDescription = "",
+                                            contentScale = ContentScale.FillWidth,
+                                            modifier = Modifier.fillMaxWidth(),
+                                        )
+                                        Spacer(modifier = Modifier.height(30.dp))
+                                        Row() {
+                                            ProfileHelper(icon=it.icon, title = it.title)
+                                        }
+
+                                    }
+
+                                } else {
+                                    ProfileHelper(icon=it.icon, title = it.title)
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(30.dp))
+                        }
+                    }
                 }
             }
         },
@@ -81,7 +170,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(end = 20.dp),
+                        .padding(end = 22.dp, start = 18.dp, top = 14.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -150,16 +239,19 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Spacer(modifier = Modifier.height(49.dp))
                 Image(
                     bitmap = ImageBitmap.imageResource(R.drawable.profile_icon),
                     contentDescription = "",
                     modifier = Modifier.size(96.dp)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Emmanuel Oyiboke",
                     style = CustomTheme.typography.BodyRegular20,
                     color = CustomTheme.colors.text
                 )
+                Spacer(modifier = Modifier.height(35.dp))
                 Box(
                     modifier = Modifier
                         .background(
@@ -182,7 +274,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                         contentScale = ContentScale.FillWidth
                     )
                 }
-
+                Spacer(modifier = Modifier.height(21.dp))
                 Input(
                     modifier = Modifier.fillMaxWidth(),
                     value = firstName,
@@ -195,6 +287,8 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     },
                     text = "Имя"
                 )
+                Spacer(modifier = Modifier.height(17.dp))
+
                 Input(
                     modifier = Modifier.fillMaxWidth(),
                     value = lastName,
@@ -207,6 +301,8 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     },
                     text = "Фамилия"
                 )
+                Spacer(modifier = Modifier.height(17.dp))
+
                 Input(
                     modifier = Modifier.fillMaxWidth(),
                     value = address,
@@ -219,6 +315,8 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     },
                     text = "Адрес"
                 )
+                Spacer(modifier = Modifier.height(17.dp))
+
                 Input(
                     modifier = Modifier.fillMaxWidth(),
                     value = phone,

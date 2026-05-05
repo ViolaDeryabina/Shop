@@ -19,9 +19,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
-//Назначение: Создание компонента ввода информации
+//Назначение:  Функция для создания компонента для ввода информации
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
@@ -34,7 +35,7 @@ fun Search(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
-    Log.i("Search","Создание компонента ввода информации")
+    logInfo("Search","Создание компонента","Search")
 
     OutlinedTextField(
         modifier = modifier.height(52.dp).shadow(elevation = 11.dp),

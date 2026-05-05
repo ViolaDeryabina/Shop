@@ -14,10 +14,16 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
+
+//Назначение: Функция для создания компонента CardButton
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun CardButton(modifier: Modifier = Modifier, bitmap: Int) {
+    logInfo("CardButton","Создание компонента","Отрисовка CardButton")
     Box(
         modifier = Modifier
 
@@ -30,7 +36,7 @@ fun CardButton(modifier: Modifier = Modifier, bitmap: Int) {
         Image(
             bitmap = ImageBitmap.imageResource(bitmap),
             contentDescription = "",
-            modifier= Modifier.size(width = 45.dp, height = 23.62.dp)
+            modifier= Modifier
         )
     }
 }

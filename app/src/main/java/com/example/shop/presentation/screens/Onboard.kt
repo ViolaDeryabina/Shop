@@ -31,6 +31,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.shop.presentation.components.SecondaryButton
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Home
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.delay
@@ -55,17 +57,17 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
         ) { page ->
             when (page) {
                 0 -> {
-                    Log.i("Onboard", "Отображение первого элемента в горизонтальном пейджере")
+                    logInfo("Onboard","Создание элемента","Отрисовка первого элемента в горизонтальном пейджере")
                     OnboardingOne()
                 }
 
                 1 -> {
-                    Log.i("Onboard", "Отображение второго элемента в горизонтальном пейджере")
+                    logInfo("Onboard","Создание элемента","Отрисовка второго элемента в горизонтальном пейджере")
                     OnboardingTwo()
                 }
 
                 2 -> {
-                    Log.i("Onboard", "Отображение третьего элемента в горизонтальном пейджере")
+                    logInfo("Onboard","Создание элемента","Отрисовка третьего элемента в горизонтальном пейджере")
                     OnboardingThree()
                 }
             }
@@ -81,7 +83,7 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
         PagerIndicator(3, pagerState.currentPage)
         Spacer(modifier = Modifier.height(spacer.dp))
         SecondaryButton(onClick = {
-            Log.d("Onboard", "Нажатие нопки для перехода на главный экран")
+            logDebug("Onboard","Нажатие кнопки","Переход на экран Home")
             navController.navigate(Home)
                                   },
             text = text,
@@ -93,7 +95,7 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
 
 @Composable
 fun PagerIndicator(pageCount: Int, currentPageIndex: Int, modifier: Modifier = Modifier) {
-    Log.i("PagerIndicator", "Создание элемента PagerIndicator")
+    logInfo("PagerIndicator","Создание компонента","Отрисовка элемента PagerIndicator")
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier

@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,8 @@ import androidx.navigation.NavController
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Verification
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -37,10 +40,15 @@ import com.example.shop.presentation.theme.CustomTheme
 fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) {
     var email by rememberSaveable { mutableStateOf("") }
     var showPopup by remember { mutableStateOf(false) }
+    logInfo("Favorite","Создание экрана","Отрисовка экрана Смена пароля")
 
     Scaffold(
         topBar = {
-            BackBar(onClick = { navController.popBackStack() })
+            BackBar(onClick = {
+                logDebug("ForgotPassword","Нажатие на кнопку","Переход назад по стэку")
+
+                navController.popBackStack()
+            })
         },
         containerColor = CustomTheme.colors.block
     ) { innerPadding ->
@@ -76,7 +84,6 @@ fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) 
                         color = Color(0xFF6A6A6A)
                     )
                 },
-                isLabel = false
             )
             Spacer(modifier = Modifier.height(40.dp))
             PrimaryButton(onClick = {
@@ -84,10 +91,17 @@ fun ForgotPassword(modifier: Modifier = Modifier, navController: NavController) 
             }, text = "Отправить", enabled = true)
         }
         if (showPopup) {
-            CustomDialog(onDismissRequest = {
-                showPopup = false
-                navController.navigate(Verification)
-            }, popup = true, text = "")
+            CustomDialog(
+                onDismissRequest = {
+                    showPopup = false
+                    logDebug("ForgotPassword","Нажатие на кнопку","Переход на экран Verification")
+
+                    navController.navigate(Verification)
+                },
+                popup = true,
+                text = "Ошибка",
+                description = "Пароли не совпадают"
+            )
         }
 
     }

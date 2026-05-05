@@ -25,15 +25,21 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Функция для создания компонента CartBasket
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun CartBasket(
     modifier: Modifier = Modifier,
-    bitmap: Int,
+    bitmap: ImageBitmap,
     title: String,
     price: Int
 ) {
+    logInfo("CartBasket","Создание компонента","Отрисовка CartBasket")
+
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -59,7 +65,7 @@ fun CartBasket(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    bitmap = ImageBitmap.imageResource(bitmap),
+                    bitmap = bitmap,
                     contentDescription = "",
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier.fillMaxWidth()
@@ -88,7 +94,7 @@ fun CartBasket(
 private fun CartBasketPrev() {
     CustomTheme {
         CartBasket(
-            bitmap = R.drawable.bot,
+            bitmap = ImageBitmap.imageResource(R.drawable.bot),
             title = "Nike Club Max",
             price = 584
         )

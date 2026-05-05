@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,9 +29,14 @@ import com.example.shop.R
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана для изменение пароля
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun CreateNewPassword(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
     var password by rememberSaveable { mutableStateOf("") }
@@ -39,10 +45,18 @@ fun CreateNewPassword(modifier: Modifier = Modifier, navController: NavControlle
     var passwordShowConfirm by rememberSaveable { mutableStateOf(false) }
 
     var buttonEnabled by rememberSaveable { mutableStateOf(false) }
+    Log.i(
+        "CreateNewPassword",
+        "Создание экрана - Создание экрана CreateNewPassword"
+    )
+    logInfo("CreateNewPassword","Создание экрана","Создание экрана CreateNewPassword")
 
     Scaffold(
         topBar = {
-            BackBar(onClick = {})
+            BackBar(onClick = {
+                logDebug("CreateNewPassword","Нажатие на кнопку","Переход назад по стэку")
+                navController.popBackStack()
+            })
         },
         containerColor = CustomTheme.colors.block
     ) { innerPadding ->
@@ -113,6 +127,7 @@ fun CreateNewPassword(modifier: Modifier = Modifier, navController: NavControlle
                 PrimaryButton(onClick = {
                     if ((password.isNotEmpty() && passwordConfirm.isNotEmpty()) && password == passwordConfirm) {
                         buttonEnabled = true
+                        logDebug("CreateNewPassword","Нажатие на кнопку","Переход на экран SignIn")
                         navController.navigate(SignIn)
                     } else buttonEnabled = false
 
@@ -120,7 +135,8 @@ fun CreateNewPassword(modifier: Modifier = Modifier, navController: NavControlle
                 if (buttonEnabled) {
                     CustomDialog(
                         onDismissRequest = { buttonEnabled = false },
-                        text = "Пароли не совпадают"
+                        text = "Ошибка",
+                        description = "Пароли не совпадают"
                     )
                 }
 

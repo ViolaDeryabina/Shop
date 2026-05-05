@@ -1,5 +1,6 @@
 package com.example.shop.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +40,9 @@ import com.example.shop.R
 import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.DialogCheckout
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.components.ScreenHeader
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Home
 import com.example.shop.presentation.navigation.Map
 import com.example.shop.presentation.theme.CustomTheme
@@ -56,35 +60,28 @@ data class Bottom(
     val title: String
 )
 
+//Назначение: Создание экрана для оформления заказа
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun CheckoutEmpty(
     modifier: Modifier = Modifier,
-    navController: NavController = rememberNavController()
+    navController: NavController
 ) {
     var dialogShow by rememberSaveable { mutableStateOf(false) }
+    logInfo("CheckoutEmpty","Создание экрана","Оформление заказа")
+
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Back(onClick = { navController.popBackStack() }, color = CustomTheme.colors.block)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Корзина",
-                        style = CustomTheme.typography.HeadingSemiBold16,
-                        color = CustomTheme.colors.text
-                    )
-                }
-            }
+            Spacer(modifier = Modifier.height(12.dp))
+            ScreenHeader(
+                title = "Корзина",
+                onBackClick = {
+                    logDebug("CheckoutEmpty","Нажатие на кнопку","Переход назад по стэку")
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp),
+            )
         },
         bottomBar = {
             Column(modifier = Modifier.padding(horizontal = 20.dp)) {
@@ -128,6 +125,7 @@ fun CheckoutEmpty(
                 Spacer(modifier = Modifier.height(23.dp))
                 PrimaryButton(onClick = {
                     dialogShow=true
+                    logDebug("CheckoutEmpty","Нажатие на кнопку"," Подтверждение заказа, переход на экран Home")
                     navController.navigate(Home)
                                         }, text = "Подтвердить", enabled = true)
                 Spacer(modifier = Modifier.height(31.dp))
@@ -239,6 +237,10 @@ fun CheckoutEmpty(
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
+                        Log.d(
+                            "CheckoutEmpty",
+                            "Нажатие на кнопку - Переход на экран Map"
+                        )
                         navController.navigate(
                             Map
                         )
@@ -341,6 +343,6 @@ fun CheckoutEmpty(
 @Composable
 private fun CheckoutEmptyPrev() {
     CustomTheme {
-        CheckoutEmpty()
+        //CheckoutEmpty()
     }
 }

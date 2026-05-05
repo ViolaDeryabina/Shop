@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
@@ -30,18 +32,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
 @Composable
 fun CustomDialog(
-    onDismissRequest: () -> Unit, text: String,
+    onDismissRequest: () -> Unit, text: String, description: String,
     popup: Boolean = false
 ) {
+    logInfo("CustomDialog","Создание компонента","Диалоговое окно")
+
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(196.dp),
+                .fillMaxWidth(),
+            //.height(196.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardColors(
                 containerColor = CustomTheme.colors.block,
@@ -53,7 +58,8 @@ fun CustomDialog(
             if (popup) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize().padding(10.dp),
+                        .fillMaxSize()
+                        .padding(10.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
@@ -87,21 +93,49 @@ fun CustomDialog(
             } else {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxWidth()
+                        .padding(horizontal = 28.dp, vertical = 25.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
+                    Spacer(modifier = Modifier.height(19.dp))
                     Text(
                         text = text,
-                        modifier = Modifier.padding(16.dp),
                     )
+                    Spacer(modifier = Modifier.height(22.dp))
+                    Text(
+                        text = description,
+                    )
+                    Spacer(modifier = Modifier.height(45.dp))
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp),
-                        horizontalArrangement = Arrangement.Center,
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        PrimaryButton(onClick = onDismissRequest, text = "Закрыть", enabled = true)
+                        SmallButton(
+                            onClick = onDismissRequest, text = "Отмена",
+                            colors = ButtonColors(
+                                containerColor = CustomTheme.colors.subTextLight,
+                                contentColor = CustomTheme.colors.text,
+                                disabledContentColor = CustomTheme.colors.subTextLight,
+                                disabledContainerColor = CustomTheme.colors.block,
+                            ),
+                            modifier = Modifier
+                                .weight(1f)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        SmallButton(
+                            onClick = onDismissRequest, text = "OK",
+                            colors = ButtonColors(
+                                containerColor = CustomTheme.colors.accent,
+                                contentColor = CustomTheme.colors.text,
+                                disabledContentColor = CustomTheme.colors.accent,
+                                disabledContainerColor = CustomTheme.colors.block,
+                            ),
+                            colorText = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .weight(1f)
+                        )
                     }
                 }
             }
@@ -113,6 +147,11 @@ fun CustomDialog(
 @Composable
 private fun Prev() {
     CustomTheme {
-        CustomDialog(onDismissRequest = {}, popup = true, text = "")
+        CustomDialog(
+            onDismissRequest = {},
+            popup = false,
+            text = "Title",
+            description = "description"
+        )
     }
 }

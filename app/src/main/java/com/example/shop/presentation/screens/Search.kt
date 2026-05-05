@@ -31,35 +31,29 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.Back
+import com.example.shop.presentation.components.ScreenHeader
 import com.example.shop.presentation.components.Search
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Создание экрана поиска товара
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
-fun Search(modifier: Modifier = Modifier, navController: NavController= rememberNavController()) {
+fun Search(modifier: Modifier = Modifier, navController: NavController = rememberNavController()) {
     var search by rememberSaveable { mutableStateOf("") }
+    logInfo("Search", "Создание экрана", "Отрисовка экрана поиска")
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Back(onClick = { navController.popBackStack()},color= CustomTheme.colors.block)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Поиск",
-                        style = CustomTheme.typography.HeadingSemiBold16,
-                        color = CustomTheme.colors.text
-                    )
-                }
-            }
+            ScreenHeader(
+                title = "Поиск",
+                onBackClick = {
+                    logDebug("Search", "Нажатие на кнопку", "Переход назад по стэку")
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(horizontal = 20.dp)
+            )
         },
         containerColor = CustomTheme.colors.background
     ) { innerPadding ->

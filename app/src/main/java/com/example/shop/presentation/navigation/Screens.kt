@@ -46,3 +46,6 @@ object CheckoutEmpty
 
 @Serializable
 object Verification
+
+@Serializable
+object Profile

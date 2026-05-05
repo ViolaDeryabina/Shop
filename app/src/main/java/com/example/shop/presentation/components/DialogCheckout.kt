@@ -1,5 +1,6 @@
 package com.example.shop.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,15 +34,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
+//Назначение: Функция для создания компонента диалогового окна
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun DialogCheckout(modifier: Modifier = Modifier, onDismissRequest: () -> Unit) {
+    logInfo("DialogCheckout","Создание компонента","Диалоговое окно")
+
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(375.dp),
+                .width(335.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardColors(
                 containerColor = CustomTheme.colors.block,
@@ -52,8 +59,8 @@ fun DialogCheckout(modifier: Modifier = Modifier, onDismissRequest: () -> Unit) 
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp),
+                    .fillMaxWidth()
+                    .padding(horizontal =  10.dp, vertical = 40.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {

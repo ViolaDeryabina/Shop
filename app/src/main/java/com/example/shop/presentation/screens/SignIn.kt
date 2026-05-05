@@ -34,6 +34,7 @@ import com.example.shop.presentation.components.Back
 import com.example.shop.presentation.components.CustomDialog
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
+import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.navigation.ForgotPassword
 import com.example.shop.presentation.navigation.RegisterAccount
 import com.example.shop.presentation.theme.CustomTheme
@@ -52,9 +53,16 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
     if (email.isNotEmpty() && password.isNotEmpty()) buttonEnabled = true else buttonEnabled = false
     Scaffold(
         topBar = {
-            BackBar(onClick = { navController.popBackStack() })
+            BackBar(onClick = {
+                logDebug("SignIn", "Нажатие на кнопку", "Переход назад по стэку")
+                navController.popBackStack()
+            })
         },
-        bottomBar = { BottomBar(onClick = { navController.navigate(RegisterAccount) }) }
+        bottomBar = { BottomBar(onClick = {
+            logDebug("SignIn", "Нажатие на кнопку", "Переход на экран RegisterAccount")
+
+            navController.navigate(RegisterAccount)
+        }) }
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -139,7 +147,8 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
         if (showDialog) {
             CustomDialog(
                 onDismissRequest = { showDialog = false },
-                text = "Заполните все поля",
+                text = "Ошибка",
+                description = "Заполните все поля"
             )
         }
 

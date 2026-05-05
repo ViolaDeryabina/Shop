@@ -44,9 +44,12 @@ import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CustomCard
 import com.example.shop.presentation.components.ListCategory
 import com.example.shop.presentation.components.Search
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Details
 import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.MyCart
+import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.navigation.Search
 import com.example.shop.presentation.theme.CustomTheme
 
@@ -57,18 +60,27 @@ import com.example.shop.presentation.theme.CustomTheme
 @Composable
 fun Home(modifier: Modifier = Modifier, navController: NavController) {
     val scroll = rememberScrollState()
+
+    logInfo("Home","Создание экрана","Отрисовка экрана Home")
+
     Scaffold(
         bottomBar = {
             BottomBar(
                 selectedInt = 0,
                 homeOnClick = { },
                 favoriteOnClick = {
-                    Log.d("Home", "Нажатие на кнопку favorite для перехода на форму Favorite")
+                    logDebug("Home","Нажатие на кнопку","Переход на экран Favorite")
                     navController.navigate(Favorite)
                 },
                 notificationOnClick = { },
-                profileOnClick = { },
-                basketOnClick = { navController.navigate(MyCart) }
+                profileOnClick = {
+                    logDebug("Home","Нажатие на кнопку","Переход на экран Profile")
+                    navController.navigate(Profile)
+                },
+                basketOnClick = {
+                    logDebug("Home","Нажатие на кнопку","Переход на экран MyCart")
+                    navController.navigate(MyCart)
+                }
             )
         },
         containerColor = CustomTheme.colors.background
@@ -231,15 +243,35 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                     title = "Nike Air Max",
                     category = "Best Seller",
                     price = 752,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
 
-                    )
+                )
                 Spacer(modifier = Modifier.width(15.dp))
                 CustomCard(
                     modifier = Modifier.weight(0.42f),
                     bitmap = ImageBitmap.imageResource(R.drawable.bot),
                     title = "Nike Air Max",
                     category = "Best Seller",
-                    price = 752
+                    price = 752,
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.add),
+                            contentDescription = "",
+                            tint = CustomTheme.colors.block,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .offset(y = (2).dp)
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(29.dp))

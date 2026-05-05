@@ -16,6 +16,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logDebug
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
 //Назначение: Создание компонента для перехода на предыдущую страницу
@@ -23,7 +25,7 @@ import com.example.shop.presentation.theme.CustomTheme
 //Дата: 30.04.2026
 @Composable
 fun Back(modifier: Modifier = Modifier, onClick:()-> Unit, color: Color = CustomTheme.colors.background) {
-    Log.i("Back","Создание компонента для перехода на предыдущую страницу")
+    logInfo("Back","Создание компонента","Отрисовка кнопки возврата")
 
     Box(
         modifier = Modifier

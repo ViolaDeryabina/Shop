@@ -21,9 +21,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shop.R
+import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
-//Назначение: Создание компонента для навигации между экранами
+//Назначение: Функция для создания компонента для навигации между экранами
 //Автор: Дерябина В.Н.
 //Дата: 30.04.2026
 @Composable
@@ -36,8 +37,7 @@ fun BottomBar(
     profileOnClick: () -> Unit,
     basketOnClick: () -> Unit,
 ) {
-
-    Log.i("BottomBar", "Создание компонента BottomBar")
+    logInfo("BottomBar","Создание компонента","Отрисовка навигации внизу экрана")
     Box(modifier = modifier.fillMaxWidth()) {
         Image(
             imageVector = ImageVector.vectorResource(R.drawable.bottom_bar),
@@ -59,7 +59,6 @@ fun BottomBar(
                 modifier = Modifier
                     .clickable(onClick = {
                         Log.d("BottomBar", "Нажатие на кнопку home")
-
                         homeOnClick()
                     })
             )
