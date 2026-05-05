@@ -31,6 +31,9 @@ import kotlinx.coroutines.delay
 import java.sql.Time
 import java.util.concurrent.TimeUnit
 
+//Назначение: Создание экрана подтверждения OTP
+//Автор: Дерябина В.Н.
+//Дата: 30.04.2026
 @Composable
 fun Verification(
     modifier: Modifier = Modifier,
