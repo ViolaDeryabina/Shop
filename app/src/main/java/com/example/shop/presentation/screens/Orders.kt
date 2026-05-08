@@ -1,18 +1,31 @@
 package com.example.shop.presentation.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -31,7 +44,9 @@ data class DataOrders(
     val priceNew: Int,
     val time: Int? = null,
     val code: String,
-    val timeString: String? = ""
+    val timeString: String? = "",
+    val id: Int?=0,
+    val isRemoved: Boolean = false
 )
 
 @Composable
@@ -61,86 +76,142 @@ fun Orders(modifier: Modifier = Modifier, navController: NavController = remembe
                 style = CustomTheme.typography.BodyRegular16,
                 color = CustomTheme.colors.text
             )
-            val listToday = listOf(
-                DataOrders(
-                    bitmap = R.drawable.bot,
-                    title = "Nike Air Max 270 Essential",
-                    price = 584,
-                    priceNew = 260,
-                    time = 7,
-                    code = "325556516"
-                ),
-                DataOrders(
-                    bitmap = R.drawable.bot,
-                    title = "Nike Air Max 270 Essential",
-                    price = 584,
-                    priceNew = 260,
-                    time = 7,
-                    code = "325556516"
-                )
-            )
-            Spacer(modifier = Modifier.height(11.dp))
-            val list = listOf(
-                DataOrders(
-                    bitmap = R.drawable.bot,
-                    title = "Nike Air Max 270 Essential",
-                    price = 584,
-                    priceNew = 260,
-                    timeString = "10:23",
-                    code = "325556516"
-                ),
-                DataOrders(
-                    bitmap = R.drawable.bot,
-                    title = "Nike Air Max 270 Essential",
-                    price = 584,
-                    priceNew = 260,
-                    timeString = "10:23",
-                    code = "325556516"
-                ),
-                DataOrders(
-                    bitmap = R.drawable.bot,
-                    title = "Nike Air Max 270 Essential",
-                    price = 584,
-                    priceNew = 260,
-                    timeString = "10:23",
-                    code = "325556516"
-                )
-            )
-            listToday.forEach { it ->
-                CartBasket(
-                    dataOrder = DataOrders(
-                        bitmap = it.bitmap,
-                        title = it.title,
-                        price = it.price,
-                        priceNew = it.priceNew,
-                        time = it.time ?: 0,
-                        code = it.code
+            val listToday = remember {
+                mutableListOf(
+                    DataOrders(
+                        bitmap = R.drawable.bot,
+                        title = "Nike Air Max 270 Essential",
+                        price = 584,
+                        priceNew = 260,
+                        time = 7,
+                        code = "325556516",
+                        id = 0
+                    ),
+                    DataOrders(
+                        bitmap = R.drawable.bot,
+                        title = "Nike Air Max 270 Essential",
+                        price = 584,
+                        priceNew = 260,
+                        time = 7,
+                        code = "325556516",
+                        id = 1
+                    ),
+                    DataOrders(
+                        bitmap = R.drawable.bot,
+                        title = "Nike Air Max 270 Essential",
+                        price = 584,
+                        priceNew = 260,
+                        timeString = "10:23",
+                        code = "325556516",
+                        id=2
+                    ),
+                    DataOrders(
+                        bitmap = R.drawable.bot,
+                        title = "Nike Air Max 270 Essential",
+                        price = 584,
+                        priceNew = 260,
+                        timeString = "10:23",
+                        code = "325556516",
+                        id=3
+                    ),
+                    DataOrders(
+                        bitmap = R.drawable.bot,
+                        title = "Nike Air Max 270 Essential",
+                        price = 584,
+                        priceNew = 260,
+                        timeString = "10:23",
+                        code = "325556516",
+                        id=4
                     )
                 )
-                Spacer(modifier = Modifier.height(13.dp))
-            }
 
-            Text(
-                text = "Вчера",
-                style = CustomTheme.typography.BodyRegular16,
-                color = CustomTheme.colors.text
-            )
+            }
             Spacer(modifier = Modifier.height(11.dp))
 
-            list.forEach { it ->
-                CartBasket(
-                    dataOrder = DataOrders(
-                        it.bitmap,
-                        title = it.title,
-                        price = it.price,
-                        priceNew = it.priceNew,
-                        timeString = it.timeString ?: "",
-                        code = it.code
+            listToday.forEachIndexed { index, it ->
+                if(it.id==2){
+                    Text(
+                        text = "Вчера",
+                        style = CustomTheme.typography.BodyRegular16,
+                        color = CustomTheme.colors.text
                     )
-                )
-                Spacer(modifier = Modifier.height(13.dp))
+                    Spacer(modifier = Modifier.height(11.dp))
+                }
+                if (!it.isRemoved) {
+                    val dismissState = rememberSwipeToDismissBoxState()
 
+                    LaunchedEffect(dismissState.currentValue) {
+                        if (dismissState.currentValue != SwipeToDismissBoxValue.Settled) {
+                            if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+
+                                logDebug("", "Удаление", "${it.id}")
+                                println("Удаление: ${it.id}")
+                                listToday[index] = it.copy(isRemoved = true)
+                            }
+                            dismissState.snapTo(SwipeToDismissBoxValue.Settled)
+                        }
+                    }
+                    SwipeToDismissBox(
+                        state = dismissState,
+                        enableDismissFromStartToEnd = true,
+                        enableDismissFromEndToStart = true,
+                        backgroundContent = {
+                            val direction = dismissState.dismissDirection
+
+                            Row(modifier = Modifier.fillMaxSize()) {
+                                if (direction == SwipeToDismissBoxValue.StartToEnd) {
+                                    Box(
+                                        Modifier.fillMaxHeight().weight(1.5f)
+                                            .background(
+                                                CustomTheme.colors.accent,
+                                                RoundedCornerShape(8.dp)
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            imageVector = ImageVector.vectorResource(R.drawable.update),
+                                            contentDescription = null,
+                                            tint = CustomTheme.colors.block
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.weight(8f))
+                                } else if (direction == SwipeToDismissBoxValue.EndToStart) {
+                                    Spacer(modifier = Modifier.weight(8f))
+                                    Box(
+                                        Modifier.fillMaxHeight().weight(1.5f)
+                                            .background(
+                                                CustomTheme.colors.red,
+                                                RoundedCornerShape(8.dp)
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            imageVector = ImageVector.vectorResource(R.drawable.delete),
+                                            contentDescription = null,
+                                            tint = CustomTheme.colors.block
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                    ) {
+                        CartBasket(
+                            dataOrder = DataOrders(
+                                bitmap = it.bitmap,
+                                title = it.title,
+                                price = it.price,
+                                priceNew = it.priceNew,
+                                time = it.time ?: 0,
+                                code = it.code,
+                                timeString = it.timeString
+                            )
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(13.dp))
+                }
             }
+
         }
     }
 }
