@@ -55,3 +55,8 @@ object Notification
 
 @Serializable
 object LoyaltyCard
+@Serializable
+object DetailOrder
+
+@Serializable
+object Orders

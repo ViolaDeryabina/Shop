@@ -35,6 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.CartBasket
+import com.example.shop.presentation.components.DataCartBasket
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.components.ScreenHeader
 import com.example.shop.presentation.logDebug
@@ -80,23 +81,29 @@ fun MyCart(modifier: Modifier = Modifier,navController: NavController) {
                         .background(CustomTheme.colors.background)
                 ) {
                     Spacer(modifier = Modifier.height(48.dp))
-                    CartBasket(
-                        bitmap =  ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Club Max",
-                        price = 584
+                    val list = listOf(
+                        DataCartBasket(
+                            bitmap =  ImageBitmap.imageResource(R.drawable.bot),
+                            title = "Nike Club Max",
+                            price = 584
+                        ),
+                        DataCartBasket(
+                            bitmap =  ImageBitmap.imageResource(R.drawable.bot),
+                            title = "Nike Club Max",
+                            price = 584
+                        ),
+                        DataCartBasket(
+                            bitmap =  ImageBitmap.imageResource(R.drawable.bot),
+                            title = "Nike Club Max",
+                            price = 584
+                        )
                     )
-                    Spacer(modifier = Modifier.height(14.dp))
-                    CartBasket(
-                        bitmap =  ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Club Max",
-                        price = 584
-                    )
-                    Spacer(modifier = Modifier.height(14.dp))
-                    CartBasket(
-                        bitmap = ImageBitmap.imageResource(R.drawable.bot),
-                        title = "Nike Club Max",
-                        price = 584
-                    )
+                    list.forEach { it->
+                        CartBasket(
+                            dataCartBasket = it
+                        )
+                        Spacer(modifier = Modifier.height(14.dp))
+                    }
                 }
             }
             Box(

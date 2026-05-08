@@ -16,8 +16,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -55,6 +57,7 @@ import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.LoyaltyCard
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Notification
+import com.example.shop.presentation.navigation.Orders
 import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
@@ -162,7 +165,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                                         "Нажатие на кнопку",
                                         "Переход на экран MyCart"
                                     )
-                                    navController.navigate(MyCart)
+                                    navController.navigate(Orders)
                                 }
                             ), DataProfile(
                                 icon = R.drawable.notification,
@@ -225,6 +228,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
         },
         drawerState = drawerState
     ) {
+        val scroll = rememberScrollState()
         Scaffold(
             topBar = {
                 Row(
@@ -317,7 +321,8 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                 Modifier
                     .padding(innerPadding)
                     .padding(horizontal = 20.dp)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .verticalScroll(scroll),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(49.dp))

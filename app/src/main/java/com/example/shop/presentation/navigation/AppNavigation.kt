@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.screens.Catalog
 import com.example.shop.presentation.screens.CheckoutEmpty
+import com.example.shop.presentation.screens.DetailOrder
 import com.example.shop.presentation.screens.Details
 import com.example.shop.presentation.screens.Favorite
 import com.example.shop.presentation.screens.ForgotPassword
@@ -21,6 +22,7 @@ import com.example.shop.presentation.screens.Map
 import com.example.shop.presentation.screens.MyCart
 import com.example.shop.presentation.screens.Notification
 import com.example.shop.presentation.screens.Onboard
+import com.example.shop.presentation.screens.Orders
 import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.Profile
 import com.example.shop.presentation.screens.RegisterAccount
@@ -141,6 +143,18 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             composable<LoyaltyCard> {
                 logDebug("AppNavigation", "Переход", "Экран LoyaltyCard")
                 LoyaltyCard(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }//DetailOrder
+            composable<DetailOrder> {
+                logDebug("AppNavigation", "Переход", "Экран DetailOrder")
+                DetailOrder(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }
+            composable<Orders> {
+                logDebug("AppNavigation", "Переход", "Экран Orders")
+                Orders(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }

@@ -1,13 +1,11 @@
 package com.example.shop.presentation.screens
 
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
-import com.example.shop.presentation.components.CartBasketFullInfo
+import com.example.shop.presentation.components.CartBasket
 import com.example.shop.presentation.components.ScreenHeader
 import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.theme.CustomTheme
@@ -109,13 +107,15 @@ fun Orders(modifier: Modifier = Modifier, navController: NavController = remembe
                 )
             )
             listToday.forEach { it ->
-                CartBasketFullInfo(
-                    bitmap = ImageBitmap.imageResource(it.bitmap),
-                    title = it.title,
-                    price = it.price,
-                    priceNew = it.priceNew,
-                    time = it.time ?: 0,
-                    code = it.code
+                CartBasket(
+                    dataOrder = DataOrders(
+                        bitmap = it.bitmap,
+                        title = it.title,
+                        price = it.price,
+                        priceNew = it.priceNew,
+                        time = it.time ?: 0,
+                        code = it.code
+                    )
                 )
                 Spacer(modifier = Modifier.height(13.dp))
             }
@@ -128,13 +128,15 @@ fun Orders(modifier: Modifier = Modifier, navController: NavController = remembe
             Spacer(modifier = Modifier.height(11.dp))
 
             list.forEach { it ->
-                CartBasketFullInfo(
-                    bitmap = ImageBitmap.imageResource(it.bitmap),
-                    title = it.title,
-                    price = it.price,
-                    priceNew = it.priceNew,
-                    timeString = it.timeString ?: "",
-                    code = it.code
+                CartBasket(
+                    dataOrder = DataOrders(
+                        it.bitmap,
+                        title = it.title,
+                        price = it.price,
+                        priceNew = it.priceNew,
+                        timeString = it.timeString ?: "",
+                        code = it.code
+                    )
                 )
                 Spacer(modifier = Modifier.height(13.dp))
 
