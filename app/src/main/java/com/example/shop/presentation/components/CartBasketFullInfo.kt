@@ -1,16 +1,16 @@
 package com.example.shop.presentation.components
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -28,17 +28,18 @@ import com.example.shop.R
 import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
 
-//Назначение: Функция для создания компонента CartBasket
-//Автор: Дерябина В.Н.
-//Дата: 30.04.2026
 @Composable
-fun CartBasket(
+fun CartBasketFullInfo(
     modifier: Modifier = Modifier,
     bitmap: ImageBitmap,
     title: String,
     price: Int,
+    priceNew: Int,
+    time: Int=0,
+    timeString: String="",
+    code: String
 ) {
-    logInfo("CartBasket","Создание компонента","Отрисовка CartBasket")
+    logInfo("CartBasket", "Создание компонента", "Отрисовка CartBasket")
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -52,12 +53,13 @@ fun CartBasket(
     ) {
         Row(
             modifier = Modifier.padding(top = 10.dp, start = 10.dp, bottom = 9.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
                 modifier = Modifier
-                    .height(85.dp)
-                    .width(87.dp)
+                    .size(86.dp)
+                    .weight(1f)
                     .background(
                         CustomTheme.colors.background,
                         shape = RoundedCornerShape(16.dp)
@@ -72,31 +74,63 @@ fun CartBasket(
                 )
             }
             Spacer(modifier = Modifier.width(30.dp))
-            Column() {
+            Column(modifier = Modifier.weight(1.5f)) {
+                Text(
+                    text = "№ ${code}",
+                    style = CustomTheme.typography.BodyRegular14,
+                    color = CustomTheme.colors.accent
+                )
+                Spacer(modifier = Modifier.height(7.dp))
                 Text(
                     text = title,
-                    style = CustomTheme.typography.BodyRegular16,
+                    style = CustomTheme.typography.BodyRegular14,
                     color = CustomTheme.colors.text
                 )
-                Text(
-                    text = "₽${price}",
-                    style = CustomTheme.typography.BodyRegular16,
-                    color = CustomTheme.colors.text
-                )
-
+                Spacer(modifier = Modifier.height(5.dp))
+                Row() {
+                    Text(
+                        text = "₽${price}       ",
+                        style = CustomTheme.typography.BodyRegular14,
+                        color = CustomTheme.colors.text
+                    )
+                    Text(
+                        text = "₽${priceNew}",
+                        style = CustomTheme.typography.BodyRegular14,
+                        color = CustomTheme.colors.hint
+                    )
+                }
             }
+            if(timeString.isEmpty()){
+                Text(
+                    modifier= Modifier.weight(1f),
+                    text = "${time} минут назад",
+                    style = CustomTheme.typography.BodyRegular14,
+                    color = CustomTheme.colors.hint
+                )
+            }else{
+                Text(
+                    modifier= Modifier.weight(1f),
+                    text = timeString,
+                    style = CustomTheme.typography.BodyRegular14,
+                    color = CustomTheme.colors.hint
+                )
+            }
+
         }
     }
 }
 
 @Preview
 @Composable
-private fun CartBasketPrev() {
+private fun CartBasketFullInfoPrev() {
     CustomTheme {
-        CartBasket(
+        CartBasketFullInfo(
             bitmap = ImageBitmap.imageResource(R.drawable.bot),
-            title = "Nike Club Max",
-            price = 584
+            title = "Nike Air Max 270 Essential",
+            price = 584,
+            priceNew = 260,
+            time = 7,
+            code = "325556516"
         )
     }
 }
