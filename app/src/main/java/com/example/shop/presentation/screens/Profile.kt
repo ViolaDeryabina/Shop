@@ -55,6 +55,8 @@ import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.LoyaltyCard
 import com.example.shop.presentation.navigation.MyCart
 import com.example.shop.presentation.navigation.Notification
+import com.example.shop.presentation.navigation.Profile
+import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.launch
 
@@ -63,7 +65,8 @@ import kotlinx.coroutines.launch
 //Дата: 30.04.2026
 data class DataProfile(
     val icon: Int,
-    val title: String
+    val title: String,
+    val navigate: () -> Unit = { }
 )
 
 @Composable
@@ -117,28 +120,76 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                         val list = listOf(
                             DataProfile(
                                 icon = R.drawable.profile,
-                                title = "Профиль"
+                                title = "Профиль",
+                                navigate = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Отрисовка экрана для просмотра профиля"
+                                    )
+                                    navController.navigate(Profile)
+                                }
                             ),
                             DataProfile(
                                 icon = R.drawable.bag_2,
-                                title = "Корзина"
+                                title = "Корзина",
+                                navigate = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Переход на экран MyCart"
+                                    )
+                                    navController.navigate(MyCart)
+                                }
                             ),
                             DataProfile(
                                 icon = R.drawable.favorite,
-                                title = "Избранное"
+                                title = "Избранное",
+                                navigate = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Переход на экран Favorite"
+                                    )
+                                    navController.navigate(Favorite)
+                                }
                             ), DataProfile(
                                 icon = R.drawable.orders,
-                                title = "Заказы"
+                                title = "Заказы",
+                                navigate = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Переход на экран MyCart"
+                                    )
+                                    navController.navigate(MyCart)
+                                }
                             ), DataProfile(
                                 icon = R.drawable.notification,
-                                title = "Уведомления"
+                                title = "Уведомления",
+                                navigate = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Переход на экран Notification"
+                                    )
+                                    navController.navigate(Notification)
+                                }
                             ), DataProfile(
                                 icon = R.drawable.settings,
                                 title = "Настройки"
                             ),
                             DataProfile(
                                 icon = R.drawable.logout,
-                                title = "Выйти"
+                                title = "Выйти",
+                                navigate = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Переход на экран входа"
+                                    )
+                                    navController.clearBackStack(SignIn)
+                                }
                             )
                         )
                         list.forEach { it ->
@@ -153,7 +204,11 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                                         )
                                         Spacer(modifier = Modifier.height(30.dp))
                                         Row() {
-                                            ProfileHelper(icon = it.icon, title = it.title)
+                                            ProfileHelper(
+                                                modifier = Modifier.clickable(
+                                                    onClick = { it.navigate }
+                                                ),
+                                                icon = it.icon, title = it.title)
                                         }
 
                                     }
@@ -296,12 +351,18 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     Image(
                         bitmap = ImageBitmap.imageResource(R.drawable.bar_code),
                         contentDescription = "",
-                        modifier = Modifier.fillMaxWidth().clickable(
-                            onClick = {
-                                logDebug("Profile", "Нажатие на кнопку","Переход на форму LoyaltyCard")
-                                navController.navigate(LoyaltyCard)
-                            }
-                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(
+                                onClick = {
+                                    logDebug(
+                                        "Profile",
+                                        "Нажатие на кнопку",
+                                        "Переход на форму LoyaltyCard"
+                                    )
+                                    navController.navigate(LoyaltyCard)
+                                }
+                            ),
                         contentScale = ContentScale.FillWidth
                     )
                 }
