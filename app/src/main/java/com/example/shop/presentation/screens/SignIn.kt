@@ -58,11 +58,12 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
                 navController.popBackStack()
             })
         },
-        bottomBar = { BottomBar(onClick = {
-            logDebug("SignIn", "Нажатие на кнопку", "Переход на экран RegisterAccount")
-
-            navController.navigate(RegisterAccount)
-        }) }
+        bottomBar = {
+            BottomBar(onClick = {
+                logDebug("SignIn", "Нажатие на кнопку", "Переход на экран RegisterAccount")
+                navController.navigate(RegisterAccount)
+            })
+        }
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -126,7 +127,7 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(onClick = { navController.navigate(ForgotPassword)}),
+                        .clickable(onClick = { navController.navigate(ForgotPassword) }),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(
@@ -179,13 +180,17 @@ fun BottomBar(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun BackBar(modifier: Modifier = Modifier, onClick: () -> Unit,color: Color = CustomTheme.colors.background) {
+fun BackBar(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    color: Color = CustomTheme.colors.background
+) {
     Column(
         modifier = modifier
             .padding(horizontal = 20.dp)
     ) {
         Spacer(modifier = Modifier.height(23.dp))
-        Back(onClick = { onClick() },color=color)
+        Back(onClick = { onClick() }, color = color)
     }
 }
 

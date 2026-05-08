@@ -49,3 +49,9 @@ object Verification
 
 @Serializable
 object Profile
+
+@Serializable
+object Notification
+
+@Serializable
+object LoyaltyCard

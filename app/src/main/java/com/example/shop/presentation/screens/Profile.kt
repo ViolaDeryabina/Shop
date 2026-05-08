@@ -4,6 +4,7 @@ package com.example.shop.presentation.screens
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DrawerValue
@@ -52,7 +52,9 @@ import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.navigation.Favorite
+import com.example.shop.presentation.navigation.LoyaltyCard
 import com.example.shop.presentation.navigation.MyCart
+import com.example.shop.presentation.navigation.Notification
 import com.example.shop.presentation.theme.CustomTheme
 import kotlinx.coroutines.launch
 
@@ -234,12 +236,24 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     selectedInt = 3,
                     homeOnClick = { },
                     favoriteOnClick = {
-                        Log.d("Home", "Нажатие на кнопку favorite для перехода на форму Favorite")
+                        Log.d(
+                            "Profile",
+                            "Нажатие на кнопку favorite для перехода на форму Favorite"
+                        )
                         navController.navigate(Favorite)
                     },
-                    notificationOnClick = { },
+                    notificationOnClick = {
+                        Log.d(
+                            "Profile",
+                            "Нажатие на кнопку favorite для перехода на форму Notification"
+                        )
+                        navController.navigate(Notification)
+                    },
                     profileOnClick = { },
-                    basketOnClick = { navController.navigate(MyCart) }
+                    basketOnClick = {
+                        Log.d("Profile", "Нажатие на кнопку favorite для перехода на форму MyCart")
+                        navController.navigate(MyCart)
+                    }
                 )
             },
             containerColor = CustomTheme.colors.block
@@ -282,7 +296,12 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                     Image(
                         bitmap = ImageBitmap.imageResource(R.drawable.bar_code),
                         contentDescription = "",
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().clickable(
+                            onClick = {
+                                logDebug("Profile", "Нажатие на кнопку","Переход на форму LoyaltyCard")
+                                navController.navigate(LoyaltyCard)
+                            }
+                        ),
                         contentScale = ContentScale.FillWidth
                     )
                 }

@@ -49,6 +49,7 @@ import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Details
 import com.example.shop.presentation.navigation.Favorite
 import com.example.shop.presentation.navigation.MyCart
+import com.example.shop.presentation.navigation.Notification
 import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.navigation.Search
 import com.example.shop.presentation.theme.CustomTheme
@@ -72,7 +73,10 @@ fun Home(modifier: Modifier = Modifier, navController: NavController) {
                     logDebug("Home","Нажатие на кнопку","Переход на экран Favorite")
                     navController.navigate(Favorite)
                 },
-                notificationOnClick = { },
+                notificationOnClick = {
+                    logDebug("Home", "Нажатие кнопки", "Переход на экран Notification")
+                    navController.navigate(Notification)
+                },
                 profileOnClick = {
                     logDebug("Home","Нажатие на кнопку","Переход на экран Profile")
                     navController.navigate(Profile)

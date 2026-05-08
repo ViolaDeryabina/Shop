@@ -73,15 +73,15 @@ fun Onboard(modifier: Modifier = Modifier, navController: NavController) {
             }
         }
         var text = "Начать"
-        var spacer = 136
+        //var spacer = 136
         if (pagerState.currentPage != 0) {
             text = "далее"
-            spacer=95
+            //spacer=95
         }
 
         Spacer(modifier= Modifier.weight(1f))
         PagerIndicator(3, pagerState.currentPage)
-        Spacer(modifier = Modifier.height(spacer.dp))
+        //Spacer(modifier = Modifier.height(spacer.dp))
         SecondaryButton(onClick = {
             logDebug("Onboard","Нажатие кнопки","Переход на экран Home")
             navController.navigate(Home)

@@ -39,8 +39,11 @@ import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Catalog
 import com.example.shop.presentation.navigation.Details
+import com.example.shop.presentation.navigation.Home
 import com.example.shop.presentation.navigation.MyCart
+import com.example.shop.presentation.navigation.Notification
 import com.example.shop.presentation.navigation.Popular
+import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.theme.CustomTheme
 
 //Назначение: Создание экрана фавориты
@@ -91,11 +94,16 @@ fun Favorite(
                 homeOnClick = { },
                 favoriteOnClick = {
                     logDebug("Favorite","Нажатие на кнопку","Переход на экран favoriteOnClick")
-
                     navController.navigate(Popular)
                 },
-                notificationOnClick = { },
-                profileOnClick = { },
+                notificationOnClick = {
+                    logDebug("Favorite", "Нажатие кнопки", "Переход на экран Notification")
+                    navController.navigate(Notification)
+                },
+                profileOnClick = {
+                    logDebug("Favorite", "Нажатие кнопки", "Переход на экран Profile")
+                    navController.navigate(Profile)
+                },
                 basketOnClick = {
                     logDebug("Favorite","Нажатие на кнопку","Переход на экран MyCart")
                     navController.navigate(MyCart)

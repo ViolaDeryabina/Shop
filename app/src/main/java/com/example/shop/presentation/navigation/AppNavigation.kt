@@ -16,8 +16,10 @@ import com.example.shop.presentation.screens.Details
 import com.example.shop.presentation.screens.Favorite
 import com.example.shop.presentation.screens.ForgotPassword
 import com.example.shop.presentation.screens.Home
+import com.example.shop.presentation.screens.LoyaltyCard
 import com.example.shop.presentation.screens.Map
 import com.example.shop.presentation.screens.MyCart
+import com.example.shop.presentation.screens.Notification
 import com.example.shop.presentation.screens.Onboard
 import com.example.shop.presentation.screens.Popular
 import com.example.shop.presentation.screens.Profile
@@ -35,98 +37,110 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(navController = navController, startDestination = Onboard) {
             composable<RegisterAccount> {
-                logDebug("AppNavigation","Переход","Экран RegisterAccount")
+                logDebug("AppNavigation", "Переход", "Экран RegisterAccount")
                 RegisterAccount(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Onboard> {
-                logDebug("AppNavigation","Переход","Экран Onboard")
+                logDebug("AppNavigation", "Переход", "Экран Onboard")
                 Onboard(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<SignIn> {
-                logDebug("AppNavigation","Переход","Экран SignIn")
+                logDebug("AppNavigation", "Переход", "Экран SignIn")
                 SignIn(navController = navController)
             }
             composable<Home> {
-                logDebug("AppNavigation","Переход","Экран Home")
+                logDebug("AppNavigation", "Переход", "Экран Home")
                 Home(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Popular> {
-                logDebug("AppNavigation","Переход","Экран Popular")
+                logDebug("AppNavigation", "Переход", "Экран Popular")
                 Popular(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Catalog> {
-                logDebug("AppNavigation","Переход","Экран Catalog")
+                logDebug("AppNavigation", "Переход", "Экран Catalog")
                 Catalog(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<Favorite> {
-                logDebug("AppNavigation","Переход","Экран Favorite")
+                logDebug("AppNavigation", "Переход", "Экран Favorite")
                 Favorite(
                     modifier = Modifier.padding(innerPadding),
                     navController
                 )
             }
             composable<MyCart> {
-                logDebug("AppNavigation","Переход","Экран MyCart")
+                logDebug("AppNavigation", "Переход", "Экран MyCart")
                 MyCart(
-                    modifier = Modifier.padding(innerPadding),navController
-                    )
+                    modifier = Modifier.padding(innerPadding), navController
+                )
             }
             composable<Details> {
-                logDebug("AppNavigation","Переход","Экран Details")
+                logDebug("AppNavigation", "Переход", "Экран Details")
                 Details(
                     modifier = Modifier.padding(innerPadding),
                     //navController
                 )
             }
             composable<Search> {
-                logDebug("AppNavigation","Переход","Экран ForgotPassword")
+                logDebug("AppNavigation", "Переход", "Экран ForgotPassword")
                 Search(
                     modifier = Modifier.padding(innerPadding), navController
                 )
 
             }
             composable<ForgotPassword> {
-                logDebug("AppNavigation","Переход","Экран ForgotPassword")
+                logDebug("AppNavigation", "Переход", "Экран ForgotPassword")
                 ForgotPassword(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }
             composable<Map> {
-                logDebug("AppNavigation","Переход","Экран Map")
+                logDebug("AppNavigation", "Переход", "Экран Map")
                 Map(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }
             composable<CheckoutEmpty> {
-                logDebug("AppNavigation","Переход","Экран CheckoutEmpty")
+                logDebug("AppNavigation", "Переход", "Экран CheckoutEmpty")
                 CheckoutEmpty(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }
             composable<Verification> {
-                logDebug("AppNavigation","Переход","Экран Verification")
+                logDebug("AppNavigation", "Переход", "Экран Verification")
                 Verification(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }
             composable<Profile> {
-                logDebug("AppNavigation","Переход","Экран Profile")
+                logDebug("AppNavigation", "Переход", "Экран Profile")
                 Profile(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }
+            composable<Notification> {
+                logDebug("AppNavigation", "Переход", "Экран Notification")
+                Notification(
+                    modifier = Modifier.padding(innerPadding), navController
+                )
+            }
+            composable<LoyaltyCard> {
+                logDebug("AppNavigation", "Переход", "Экран LoyaltyCard")
+                LoyaltyCard(
                     modifier = Modifier.padding(innerPadding), navController
                 )
             }

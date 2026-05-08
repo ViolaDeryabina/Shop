@@ -1,15 +1,13 @@
 package com.example.shop.presentation.screens
 
-import android.accessibilityservice.GestureDescription
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,13 +26,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.logInfo
-import com.example.shop.presentation.navigation.Catalog
+import com.example.shop.presentation.navigation.Favorite
+import com.example.shop.presentation.navigation.Home
+import com.example.shop.presentation.navigation.MyCart
+import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.theme.CustomTheme
-import kotlinx.coroutines.launch
 
 //Назначение: Создание экрана
 //Автор: Дерябина В.Н.
@@ -47,9 +49,11 @@ data class DataNotification(
 )
 
 @Composable
-fun Notification(modifier: Modifier = Modifier) {
+fun Notification(
+    modifier: Modifier = Modifier,
+    navController: NavController = rememberNavController()
+) {
     logInfo("Notification", "Создание экрана", "Отрисовка экрана для ***")
-    logDebug("Notification", "Нажатие кнопки", "Переход ***")
 
     Scaffold(
         topBar = {
@@ -65,7 +69,8 @@ fun Notification(modifier: Modifier = Modifier) {
                         .clip(shape = CircleShape)
                         .background(CustomTheme.colors.block)
                         .size(44.dp), onClick = {
-
+                        logDebug("Notification", "Нажатие кнопки", "Переход назад по стэку")
+                        navController.popBackStack()
                     }
                 ) {
                     Icon(
@@ -88,13 +93,23 @@ fun Notification(modifier: Modifier = Modifier) {
         bottomBar = {
             BottomBar(
                 selectedInt = 2,
-                homeOnClick = { },
+                homeOnClick = {
+                    logDebug("Notification", "Нажатие кнопки", "Переход на экран Home")
+                    navController.navigate(Home)
+                },
                 favoriteOnClick = {
-
+                    logDebug("Notification", "Нажатие кнопки", "Переход на экран Favorite")
+                    navController.navigate(Favorite)
                 },
                 notificationOnClick = { },
-                profileOnClick = { },
-                basketOnClick = { }
+                profileOnClick = {
+                    logDebug("Notification", "Нажатие кнопки", "Переход на экран Profile")
+                    navController.navigate(Profile)
+                },
+                basketOnClick = {
+                    logDebug("Notification", "Нажатие кнопки", "Переход на экран MyCart")
+                    navController.navigate(MyCart)
+                }
             )
         },
         containerColor = CustomTheme.colors.block
@@ -138,25 +153,28 @@ fun Notification(modifier: Modifier = Modifier) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .background(CustomTheme.colors.background, RoundedCornerShape(16.dp))
                             .padding(16.dp)
-                            .background(CustomTheme.colors.background, RoundedCornerShape(16.dp)),
-                        ) {
+                    ) {
                         Text(
                             text = it.title,
-                            style = CustomTheme.typography.BodyRegular20,
+                            style = CustomTheme.typography.BodyRegular16,
                             color = CustomTheme.colors.text
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = it.description,
-                            style = CustomTheme.typography.BodyRegular20,
+                            style = CustomTheme.typography.BodyRegular12,
                             color = CustomTheme.colors.text
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
                         Text(
                             text = it.date,
-                            style = CustomTheme.typography.BodyRegular20,
-                            color = CustomTheme.colors.text
+                            style = CustomTheme.typography.BodyRegular12,
+                            color = CustomTheme.colors.subTextDark
                         )
                     }
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
         }
