@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     implementation("androidx.core:core-splashscreen:1.2.0")
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)

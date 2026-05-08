@@ -2,6 +2,9 @@ package com.example.shop.presentation.screens
 
 
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -61,6 +64,7 @@ import com.example.shop.presentation.navigation.Orders
 import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
+import com.example.shop.presentation.theme.ProfileViewModel
 import kotlinx.coroutines.launch
 
 //Назначение: Создание экрана отображение профиля пользователя
@@ -73,7 +77,10 @@ data class DataProfile(
 )
 
 @Composable
-fun Profile(modifier: Modifier = Modifier, navController: NavController = rememberNavController()) {
+fun Profile(
+    modifier: Modifier = Modifier,
+    navController: NavController = rememberNavController()
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     var firstName by rememberSaveable { mutableStateOf("") }
@@ -82,6 +89,14 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
     var phone by rememberSaveable { mutableStateOf("") }
 
     logInfo("Profile", "Создание экрана", "Отрисовка экрана для просмотра профиля")
+    val pickMedia =
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                Log.d("photo picker", "Selected URI: $uri")
+            } else {
+                Log.d("photo picker", "No media selected")
+            }
+        }
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet(modifier = Modifier.fillMaxSize()) {
@@ -329,7 +344,11 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
                 Image(
                     bitmap = ImageBitmap.imageResource(R.drawable.profile_icon),
                     contentDescription = "",
-                    modifier = Modifier.size(96.dp)
+                    modifier = Modifier
+                        .size(96.dp)
+                        .clickable(onClick = {
+                            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                        })
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -435,6 +454,6 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController = rememb
 @Composable
 private fun ProfilePrev() {
     CustomTheme {
-        Profile()
+        //Profile()
     }
 }
