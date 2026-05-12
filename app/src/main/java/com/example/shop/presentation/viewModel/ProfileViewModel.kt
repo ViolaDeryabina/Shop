@@ -1,4 +1,4 @@
-package com.example.shop.presentation.theme
+package com.example.shop.presentation.viewModel
 
 import android.net.Uri
 import androidx.compose.runtime.getValue

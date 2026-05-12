@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.theme.CustomTheme
@@ -30,6 +31,7 @@ fun SmallButton(
         disabledContentColor = CustomTheme.colors.text,
         disabledContainerColor = CustomTheme.colors.block,
     ),
+    shape: Shape = RoundedCornerShape(8.dp),
     colorText: Color = CustomTheme.colors.text,
 ) {
     logInfo("SmallButton","Создание компонента","Кнопка")
@@ -39,7 +41,7 @@ fun SmallButton(
         modifier = modifier,
         colors = colors,
         contentPadding = PaddingValues(top = 4.dp, bottom = 5.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = shape
     ) {
         Text(
             text = text,

@@ -23,6 +23,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,6 +40,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -52,7 +54,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
 import com.example.shop.presentation.components.Input
+import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.components.ProfileHelper
+import com.example.shop.presentation.components.SmallButton
 import com.example.shop.presentation.logDebug
 import com.example.shop.presentation.logInfo
 import com.example.shop.presentation.navigation.Catalog
@@ -64,7 +68,7 @@ import com.example.shop.presentation.navigation.Orders
 import com.example.shop.presentation.navigation.Profile
 import com.example.shop.presentation.navigation.SignIn
 import com.example.shop.presentation.theme.CustomTheme
-import com.example.shop.presentation.theme.ProfileViewModel
+import com.example.shop.presentation.viewModel.ProfileViewModel
 import kotlinx.coroutines.launch
 
 //Назначение: Создание экрана отображение профиля пользователя
@@ -83,6 +87,7 @@ fun Profile(
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    var editProfile by rememberSaveable { mutableStateOf(false) }
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
@@ -246,63 +251,90 @@ fun Profile(
         val scroll = rememberScrollState()
         Scaffold(
             topBar = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 22.dp, start = 18.dp, top = 14.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(
+                if (editProfile) {
+                    Row(
                         modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(CustomTheme.colors.block)
-                            .size(44.dp), onClick = {
-                            scope.launch {
-                                logDebug(
-                                    "Profile",
-                                    "Взаимодействие",
-                                    "Открытие бокового меню (Drawer)"
-                                )
-                                drawerState.open()
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                    ) {
+                        Spacer(modifier = Modifier.weight(1f))
+                        SmallButton(
+                            onClick = {editProfile=false},
+                            text = "Сохранить",
+                            modifier = Modifier
+                                .height(32.dp)
+                                .fillMaxWidth()
+                                .weight(4f),
+                            colors = ButtonColors(
+                                containerColor = CustomTheme.colors.accent,
+                                contentColor = CustomTheme.colors.block,
+                                disabledContentColor = CustomTheme.colors.block,
+                                disabledContainerColor = CustomTheme.colors.accent,
+                            ),
+                            colorText = CustomTheme.colors.block,
+                            shape = CircleShape
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 22.dp, start = 18.dp, top = 14.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(
+                            modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(CustomTheme.colors.block)
+                                .size(44.dp), onClick = {
+                                scope.launch {
+                                    logDebug(
+                                        "Profile",
+                                        "Взаимодействие",
+                                        "Открытие бокового меню (Drawer)"
+                                    )
+                                    drawerState.open()
+                                }
                             }
-                        }
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.clock_1),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(25.71.dp)
-                        )
-                    }
-                    Text(
-                        text = "Профиль",
-                        style = CustomTheme.typography.BodyRegular16,
-                        color = CustomTheme.colors.text
-                    )
-
-                    IconButton(
-                        modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(CustomTheme.colors.accent)
-                            .size(25.dp), onClick = {
-                            Log.d(
-                                "Favorite",
-                                "Нажатие кнопки favorite для перехода на экран Catalog"
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.clock_1),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .size(25.71.dp)
                             )
-                            navController.navigate(Catalog)
                         }
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.edit),
-                            contentDescription = "",
-                            tint = CustomTheme.colors.block,
-                            modifier = Modifier
-                                .size(15.dp)
-                            //.offset(y = (2).dp)
+                        Text(
+                            text = "Профиль",
+                            style = CustomTheme.typography.BodyRegular16,
+                            color = CustomTheme.colors.text
                         )
-                    }
 
+                        IconButton(
+                            modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(CustomTheme.colors.accent)
+                                .size(25.dp), onClick = {
+                                Log.d(
+                                    "Favorite",
+                                    "Нажатие кнопки favorite для перехода на экран Catalog"
+                                )
+                                editProfile = true
+                            }
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.edit),
+                                contentDescription = "",
+                                tint = CustomTheme.colors.block,
+                                modifier = Modifier
+                                    .size(15.dp)
+                                //.offset(y = (2).dp)
+                            )
+                        }
+
+                    }
                 }
             },
             bottomBar = {
@@ -356,38 +388,48 @@ fun Profile(
                     style = CustomTheme.typography.BodyRegular20,
                     color = CustomTheme.colors.text
                 )
-                Spacer(modifier = Modifier.height(35.dp))
-                Box(
-                    modifier = Modifier
-                        .background(
-                            CustomTheme.colors.background,
-                            RoundedCornerShape(16.dp)
-                        )
-                        .fillMaxWidth()
-                        .padding(8.dp)
 
-                ) {
-                    Text(
-                        text = "Открыть",
-                        style = CustomTheme.typography.BodyRegular20,
-                        color = CustomTheme.colors.text,
-                    )
-                    Image(
-                        bitmap = ImageBitmap.imageResource(R.drawable.bar_code),
-                        contentDescription = "",
+                if (!editProfile) {
+                    Spacer(modifier = Modifier.height(35.dp))
+                    Box(
                         modifier = Modifier
+                            .background(
+                                CustomTheme.colors.background,
+                                RoundedCornerShape(16.dp)
+                            )
                             .fillMaxWidth()
-                            .clickable(
-                                onClick = {
-                                    logDebug(
-                                        "Profile",
-                                        "Нажатие на кнопку",
-                                        "Переход на форму LoyaltyCard"
-                                    )
-                                    navController.navigate(LoyaltyCard)
-                                }
-                            ),
-                        contentScale = ContentScale.FillWidth
+                            .padding(8.dp)
+
+                    ) {
+                        Text(
+                            text = "Открыть",
+                            style = CustomTheme.typography.BodyRegular20,
+                            color = CustomTheme.colors.text,
+                        )
+                        Image(
+                            bitmap = ImageBitmap.imageResource(R.drawable.bar_code),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable(
+                                    onClick = {
+                                        logDebug(
+                                            "Profile",
+                                            "Нажатие на кнопку",
+                                            "Переход на форму LoyaltyCard"
+                                        )
+                                        navController.navigate(LoyaltyCard)
+                                    }
+                                ),
+                            contentScale = ContentScale.FillWidth
+                        )
+                    }
+                } else {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Изменить фото профиля",
+                        style = CustomTheme.typography.BodyRegular12,
+                        color = CustomTheme.colors.accent,
                     )
                 }
                 Spacer(modifier = Modifier.height(21.dp))
@@ -401,7 +443,16 @@ fun Profile(
                             color = CustomTheme.colors.hint
                         )
                     },
-                    text = "Имя"
+                    text = "Имя",
+                    trailingIcon = {
+                        if (editProfile) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ok),
+                                contentDescription = "",
+                                tint = CustomTheme.colors.accent
+                            )
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.height(17.dp))
 
@@ -415,7 +466,16 @@ fun Profile(
                             color = CustomTheme.colors.hint
                         )
                     },
-                    text = "Фамилия"
+                    text = "Фамилия",
+                    trailingIcon = {
+                        if (editProfile) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ok),
+                                contentDescription = "",
+                                tint = CustomTheme.colors.accent
+                            )
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.height(17.dp))
 
@@ -429,7 +489,16 @@ fun Profile(
                             color = CustomTheme.colors.hint
                         )
                     },
-                    text = "Адрес"
+                    text = "Адрес",
+                    trailingIcon = {
+                        if (editProfile) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ok),
+                                contentDescription = "",
+                                tint = CustomTheme.colors.accent
+                            )
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.height(17.dp))
 
@@ -443,7 +512,16 @@ fun Profile(
                             color = CustomTheme.colors.hint
                         )
                     },
-                    text = "Телефон"
+                    text = "Телефон",
+                    trailingIcon = {
+                        if (editProfile) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ok),
+                                contentDescription = "",
+                                tint = CustomTheme.colors.accent
+                            )
+                        }
+                    }
                 )
             }
         }
@@ -454,6 +532,6 @@ fun Profile(
 @Composable
 private fun ProfilePrev() {
     CustomTheme {
-        //Profile()
+        Profile()
     }
 }
