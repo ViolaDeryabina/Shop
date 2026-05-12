@@ -1,5 +1,7 @@
 package com.example.shop.presentation.screens
 
+import android.app.Activity
+import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,10 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +34,22 @@ fun LoyaltyCard(
     navController: NavController = rememberNavController()
 ) {
     logInfo("Map", "Создание экрана", "Отрисовка экрана Карта")
+    fun setWindowBrightness(context: android.content.Context, brightness: Float) {
+        val activity = context as? Activity ?: return
+        val lp = activity.window.attributes
+        lp.screenBrightness = brightness
+        activity.window.attributes = lp
+    }
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        setWindowBrightness(context, 0.8f)
+        val curBrightnessValue = Settings.System.getInt(
+            context.contentResolver,
+            Settings.System.SCREEN_BRIGHTNESS
+        )
+        logDebug("LoyaltyCard","Иземение яркости","$curBrightnessValue")
+    }
+
     Scaffold(
         topBar = {
             Spacer(modifier = Modifier.height(12.dp))
