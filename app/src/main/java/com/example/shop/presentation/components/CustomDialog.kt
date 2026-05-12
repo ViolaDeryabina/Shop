@@ -46,7 +46,6 @@ fun CustomDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
-            //.height(196.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardColors(
                 containerColor = CustomTheme.colors.block,

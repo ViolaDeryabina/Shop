@@ -53,6 +53,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.shop.R
 import com.example.shop.presentation.components.BottomBar
+import com.example.shop.presentation.components.DialogCamera
 import com.example.shop.presentation.components.Input
 import com.example.shop.presentation.components.PrimaryButton
 import com.example.shop.presentation.components.ProfileHelper
@@ -88,6 +89,7 @@ fun Profile(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     var editProfile by rememberSaveable { mutableStateOf(false) }
+    var dialogShow by rememberSaveable { mutableStateOf(false) }
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
@@ -427,11 +429,28 @@ fun Profile(
                 } else {
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
+                        modifier= Modifier.clickable(onClick = {
+                            dialogShow=true
+                        }),
                         text = "Изменить фото профиля",
                         style = CustomTheme.typography.BodyRegular12,
                         color = CustomTheme.colors.accent,
                     )
                 }
+                if(dialogShow){
+                    DialogCamera(
+                        onDismissRequest = {
+                            dialogShow=false
+                        },
+                        onClickGallery = {
+                            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                        },
+                        onClickCamera = {
+
+                        },
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(21.dp))
                 Input(
                     modifier = Modifier.fillMaxWidth(),
